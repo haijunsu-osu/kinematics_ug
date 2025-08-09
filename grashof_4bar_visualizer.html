@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grashof Condition Visualizer - 4-Bar Linkage</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; background: #f7f7f7; }
+        .container { max-width: 900px; margin: auto; background: #fff; padding: 24px; border-radius: 10px; box-shadow: 0 2px 8px #0001; }
+        h1 { text-align: center; }
+        .formula { background: #e3f2fd; padding: 12px; border-radius: 6px; margin-bottom: 18px; }
+        .inputs-panel { display: flex; flex-direction: row; gap: 24px; margin-bottom: 18px; }
+        .inputs { display: flex; flex-direction: column; gap: 18px; min-width: 180px; }
+        .input-group { }
+        label { display: block; margin-bottom: 4px; }
+        input[type="number"] { width: 100%; padding: 4px; }
+        input[type="range"] { width: 100%; }
+        #canvas-container { text-align: center; margin-bottom: 18px; }
+        #linkage-canvas { background: #fff; border: 1px solid #ccc; border-radius: 6px; }
+        .result { font-size: 1.1em; margin-bottom: 12px; }
+        button { padding: 8px 18px; font-size: 1em; border-radius: 5px; border: none; background: #1976d2; color: #fff; cursor: pointer; }
+        button:active { background: #1565c0; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Grashof Condition & 4-Bar Linkage Visualizer</h1>
+    <div style="text-align:center; margin-bottom:12px; color:#555; font-size:1em;">
+        Author: Haijun Su, Professor, Department of Mechanical & Aerospace Engineering, The Ohio State University<br>
+        ME 3751 Kinematics and Mechanism Design
+    </div>
+    <div class="formula">
+        <b>Grashof Condition for 4-Bar Linkages:</b><br>
+        For a planar 4-bar linkage with link lengths s (shortest), l (longest), p, q:<br>
+        <b>s + l &lt; p + q</b> &rarr; <b>Grashof linkage</b><br>
+        <b>s + l &gt; p + q</b> &rarr; <b>Non-Grashof linkage</b><br>
+        <b>s + l = p + q</b> &rarr; <b>Change point (special case)</b><br>
+        <ul>
+            <li><b>Double Crank:</b> (Grashof) Shortest link is the ground link. Both input and output can fully rotate.</li>
+            <li><b>Double Rocker:</b> (Grashof) Shortest link is the coupler link. No link can fully rotate.</li>
+            <li><b>Crank-Rocker:</b> (Grashof) Shortest link is the input or output link. That link can fully rotate, others are rockers.</li>
+            <li><b>Double Rocker (Non-Grashof):</b> No link can fully rotate.</li>
+        </ul>
+    </div>
+    <div class="inputs-panel">
+        <div class="inputs">
+            <div class="input-group">
+                <label for="link1">Link 1 (Ground): <span id="val1">100</span></label>
+                <input type="range" id="link1" min="30" max="200" value="100">
+                <input type="number" id="link1num" min="30" max="200" value="100">
+            </div>
+            <div class="input-group">
+                <label for="link2">Link 2 (Input): <span id="val2">40</span></label>
+                <input type="range" id="link2" min="30" max="200" value="40">
+                <input type="number" id="link2num" min="30" max="200" value="40">
+            </div>
+            <div class="input-group">
+                <label for="link3">Link 3 (Coupler): <span id="val3">120</span></label>
+                <input type="range" id="link3" min="30" max="200" value="120">
+                <input type="number" id="link3num" min="30" max="200" value="120">
+            </div>
+            <div class="input-group">
+                <label for="link4">Link 4 (Output): <span id="val4">80</span></label>
+                <input type="range" id="link4" min="30" max="200" value="80">
+                <input type="number" id="link4num" min="30" max="200" value="80">
+            </div>
+        </div>
+        <div style="flex:1; min-width:320px;">
+            <div class="result" id="grashof-result"></div>
+            <div id="canvas-container">
+                <canvas id="linkage-canvas" width="500" height="350"></canvas>
+            </div>
+            <div style="margin-bottom: 16px; text-align:center;">
+                <label><input type="radio" name="driver" id="driver-input" value="input" checked> Input Link as Driver</label>
+                <label style="margin-left:24px;"><input type="radio" name="driver" id="driver-output" value="output"> Output Link as Driver</label>
+            </div>
+            <div id="driver-slider-container" style="margin-bottom: 16px; text-align:center;"></div>
+            <div style="text-align:center;">
+                <button id="animate-btn">Animate Driver Link</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+// --- Utility functions ---
+function getLinks() {
+    return [
+        parseFloat(document.getElementById('link1').value),
+        parseFloat(document.getElementById('link2').value),
+        parseFloat(document.getElementById('link3').value),
+        parseFloat(document.getElementById('link4').value)
+    ];
+}
+function updateInputs() {
+    for (let i = 1; i <= 4; i++) {
+        document.getElementById('val'+i).textContent = document.getElementById('link'+i).value;
+        document.getElementById('link'+i+'num').value = document.getElementById('link'+i).value;
+    }
+}
+function updateSliders() {
+    for (let i = 1; i <= 4; i++) {
+        document.getElementById('link'+i).value = document.getElementById('link'+i+'num').value;
+        document.getElementById('val'+i).textContent = document.getElementById('link'+i+'num').value;
+    }
+}
+// --- Grashof Condition ---
+function grashofType(links) {
+    let sorted = [...links].map((v, i) => ({v, i})).sort((a, b) => a.v - b.v);
+    let s = sorted[0].v, l = sorted[3].v, p = sorted[1].v, q = sorted[2].v;
+    let idxS = sorted[0].i;
+    if (s + l < p + q) {
+        // Grashof
+        if (idxS === 0) {
+            return 'Double Crank (Shortest link is ground, both input and output can fully rotate)';
+        } else if (idxS === 2) {
+            return 'Double Rocker (Shortest link is coupler, no link can fully rotate)';
+        } else {
+            return 'Crank-Rocker (Shortest link is input or output, that link can fully rotate)';
+        }
+    } else if (s + l === p + q) {
+        return 'Change Point (Special case: s + l = p + q)';
+    } else {
+        return 'Double Rocker (No link can fully rotate)';
+    }
+}
+// --- 4-Bar Linkage Kinematics ---
+function getLinkagePoints(a, b, c, d, theta2) {
+    // a: ground, b: input, c: coupler, d: output
+    // theta2: input angle (radians)
+    // Returns: [A, B, C, D] where A=(0,0), D=(a,0)
+    // Solve for theta4 (output) and theta3 (coupler) using loop closure equations
+    let A = {x:0, y:0};
+    let D = {x:a, y:0};
+    let xB = b * Math.cos(theta2);
+    let yB = b * Math.sin(theta2);
+    // Vector from B to D
+    let dx = D.x - xB;
+    let dy = D.y - yB;
+    let R = Math.sqrt(dx*dx + dy*dy);
+    // Check for valid triangle
+    if (R > c + d || R < Math.abs(c - d)) return null; // Impossible geometry
+    // Find intersection of two circles:
+    // Circle 1: center B, radius c (coupler)
+    // Circle 2: center D, radius d (output)
+    // The intersection gives point C
+    // See: https://mathworld.wolfram.com/Circle-CircleIntersection.html
+    let a_dist = (c*c - d*d + R*R) / (2*R);
+    let h = Math.sqrt(Math.max(0, c*c - a_dist*a_dist));
+    // Point P2 is along the line from B to D, at distance a_dist from B
+    let xP2 = xB + a_dist * (dx) / R;
+    let yP2 = yB + a_dist * (dy) / R;
+    // Two possible intersection points (elbow up/down)
+    // We'll use elbow down (consistent with previous code)
+    let xC = xP2 + h * (dy) / R;
+    let yC = yP2 - h * (dx) / R;
+    let B = {x:xB, y:yB};
+    let C = {x:xC, y:yC};
+    return [A, B, C, D];
+}
+// For output-driven: theta is output link angle (theta4)
+function getLinkagePointsOutputDriven(a, b, c, d, theta4) {
+    // D = (a,0), C = D + d*[cos(theta4), sin(theta4)]
+    let A = {x:0, y:0};
+    let D = {x:a, y:0};
+    let xC = D.x + d * Math.cos(theta4);
+    let yC = D.y + d * Math.sin(theta4);
+    // Find B: intersection of two circles (A, b) and (C, c)
+    let dx = xC - A.x, dy = yC - A.y;
+    let R = Math.sqrt(dx*dx + dy*dy);
+    if (R > b + c || R < Math.abs(b - c)) return null;
+    let a_dist = (b*b - c*c + R*R) / (2*R);
+    let h = Math.sqrt(Math.max(0, b*b - a_dist*a_dist));
+    let xP2 = A.x + a_dist * (dx) / R;
+    let yP2 = A.y + a_dist * (dy) / R;
+    // Elbow down
+    let xB = xP2 + h * (dy) / R;
+    let yB = yP2 - h * (dx) / R;
+    let B = {x:xB, y:yB};
+    let C = {x:xC, y:yC};
+    return [A, B, C, D];
+}
+// --- Drawing ---
+function drawLinkage(ctx, links, theta=0, driver='input') {
+    ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
+    // Compute raw points
+    let [a,b,c,d] = links;
+    let pts;
+    if (driver === 'input') {
+        pts = getLinkagePoints(a,b,c,d,theta);
+    } else {
+        pts = getLinkagePointsOutputDriven(a,b,c,d,theta);
+    }
+    if (!pts) {
+        ctx.font = '18px Arial';
+        ctx.fillStyle = '#d32f2f';
+        ctx.fillText('Impossible linkage geometry!', 100, 180);
+        return;
+    }
+    // Use fixed scale and fixed origin (center of canvas)
+    let scale = 180 / 200; // 200 is the max link length allowed by UI
+    let canvasCenterX = ctx.canvas.width / 2;
+    let canvasCenterY = ctx.canvas.height / 2;
+    let t = p => ({
+        x: canvasCenterX + p.x * scale,
+        y: canvasCenterY - p.y * scale
+    });
+    let [A,B,C,D] = pts.map(t);
+    // Draw links
+    ctx.lineWidth = 6;
+    ctx.strokeStyle = '#1976d2';
+    ctx.beginPath(); ctx.moveTo(A.x,A.y); ctx.lineTo(B.x,B.y); ctx.stroke(); // input
+    ctx.strokeStyle = '#388e3c';
+    ctx.beginPath(); ctx.moveTo(B.x,B.y); ctx.lineTo(C.x,C.y); ctx.stroke(); // coupler
+    ctx.strokeStyle = '#fbc02d';
+    ctx.beginPath(); ctx.moveTo(C.x,C.y); ctx.lineTo(D.x,D.y); ctx.stroke(); // output
+    ctx.strokeStyle = '#616161';
+    ctx.beginPath(); ctx.moveTo(D.x,D.y); ctx.lineTo(A.x,A.y); ctx.stroke(); // ground
+    // Draw joints
+    for (let pt of [A,B,C,D]) {
+        ctx.beginPath(); ctx.arc(pt.x,pt.y,8,0,2*Math.PI);
+        ctx.fillStyle = '#fff'; ctx.fill(); ctx.strokeStyle = '#333'; ctx.stroke();
+    }
+    // Label
+    ctx.font = '14px Arial';
+    ctx.fillStyle = '#333';
+    ctx.fillText('A',A.x-18,A.y+5);
+    ctx.fillText('B',B.x-8,B.y-12);
+    ctx.fillText('C',C.x+8,C.y-8);
+    ctx.fillText('D',D.x+8,D.y+18);
+}
+// --- UI Handlers ---
+function updateAll() {
+    updateInputs();
+    let links = getLinks();
+    document.getElementById('grashof-result').textContent = 'Type: ' + grashofType(links);
+    let ctx = document.getElementById('linkage-canvas').getContext('2d');
+    let driver = document.getElementById('driver-input').checked ? 'input' : 'output';
+    let a = links[0], b = links[1], c = links[2], d = links[3];
+    let N = 360;
+    let valid = [];
+    let theta_min = -Math.PI, theta_max = Math.PI;
+    if (driver === 'input') {
+        for (let i = 0; i <= N; i++) {
+            let t = -Math.PI + i * 2 * Math.PI / N;
+            let xB = b * Math.cos(t);
+            let yB = b * Math.sin(t);
+            let dx = a - xB;
+            let dy = -yB;
+            let R = Math.sqrt(dx*dx + dy*dy);
+            if (R <= c + d && R >= Math.abs(c - d)) {
+                valid.push(t);
+            }
+        }
+    } else {
+        for (let i = 0; i <= N; i++) {
+            let t = -Math.PI + i * 2 * Math.PI / N;
+            let xD = a, yD = 0;
+            let xC = xD + d * Math.cos(t);
+            let yC = yD + d * Math.sin(t);
+            let dx = xC - 0, dy = yC - 0;
+            let R = Math.sqrt(dx*dx + dy*dy);
+            if (R > b + c || R < Math.abs(b - c)) continue;
+            valid.push(t);
+        }
+    }
+    if (valid.length < N && valid.length > 0) {
+        theta_min = valid[0];
+        theta_max = valid[valid.length - 1];
+    }
+    // Driver slider
+    let sliderDiv = document.getElementById('driver-slider-container');
+    sliderDiv.innerHTML = '';
+    if (valid.length > 0) {
+        let slider = document.createElement('input');
+        slider.type = 'range';
+        slider.min = theta_min;
+        slider.max = theta_max;
+        slider.step = (theta_max-theta_min)/360;
+        // Default angle: input-driven = middle, output-driven = 45deg (pi/4) if in range, else middle
+        let defaultAngle = (driver === 'output' && theta_min < Math.PI/4 && Math.PI/4 < theta_max) ? (Math.PI/4) : ((theta_min + theta_max) / 2);
+        slider.value = defaultAngle;
+        slider.style.width = '80%';
+        slider.id = 'driver-angle-slider';
+        sliderDiv.appendChild(slider);
+        let label = document.createElement('span');
+        label.id = 'driver-angle-label';
+        label.style.marginLeft = '12px';
+        sliderDiv.appendChild(label);
+        function updateSliderLabel(val) {
+            label.textContent = 'Driver angle: ' + (parseFloat(val)*180/Math.PI).toFixed(1) + '°';
+        }
+        updateSliderLabel(slider.value);
+        slider.oninput = function() {
+            updateSliderLabel(this.value);
+            drawLinkage(ctx, links, parseFloat(this.value), driver);
+        };
+        // Draw at initial value
+        drawLinkage(ctx, links, parseFloat(slider.value), driver);
+    } else {
+        drawLinkage(ctx, links, 0, driver);
+    }
+}
+for (let i = 1; i <= 4; i++) {
+    document.getElementById('link'+i).addEventListener('input', updateAll);
+    document.getElementById('link'+i+'num').addEventListener('input', function() {
+        updateSliders();
+        updateAll();
+    });
+}
+document.getElementById('driver-input').addEventListener('change', updateAll);
+document.getElementById('driver-output').addEventListener('change', updateAll);
+updateAll();
+// --- Animation ---
+let animating = false, animId = null, theta = 0;
+document.getElementById('animate-btn').onclick = function() {
+    if (animating) {
+        animating = false;
+        this.textContent = 'Animate Input Link';
+        if (animId) cancelAnimationFrame(animId);
+        return;
+    }
+    animating = true;
+    this.textContent = 'Stop Animation';
+    let ctx = document.getElementById('linkage-canvas').getContext('2d');
+    let links = getLinks();
+    let driver = document.getElementById('driver-input').checked ? 'input' : 'output';
+    let a = links[0], b = links[1], c = links[2], d = links[3];
+    let N = 360;
+    let valid = [];
+    let isCrank = true;
+    let theta_min = 0, theta_max = 2 * Math.PI;
+    if (driver === 'input') {
+        for (let i = 0; i <= N; i++) {
+            let t = i * 2 * Math.PI / N;
+            let xB = b * Math.cos(t);
+            let yB = b * Math.sin(t);
+            let dx = a - xB;
+            let dy = -yB;
+            let R = Math.sqrt(dx*dx + dy*dy);
+            if (R <= c + d && R >= Math.abs(c - d)) {
+                valid.push(t);
+            }
+        }
+    } else {
+        for (let i = 0; i <= N; i++) {
+            let t = i * 2 * Math.PI / N;
+            let xD = a, yD = 0;
+            let xC = xD + d * Math.cos(t);
+            let yC = yD + d * Math.sin(t);
+            let dx = xC - 0, dy = yC - 0;
+            let R = Math.sqrt(dx*dx + dy*dy);
+            if (R > b + c || R < Math.abs(b - c)) continue;
+            valid.push(t);
+        }
+    }
+    if (valid.length < N) {
+        isCrank = false;
+        theta_min = valid[0];
+        theta_max = valid[valid.length - 1];
+    }
+    let theta = isCrank ? 0 : (theta_min + theta_max) / 2;
+    let direction = 1;
+    function animate() {
+        if (!animating) return;
+        drawLinkage(ctx, links, theta, driver);
+        if (isCrank) {
+            theta += 0.03;
+            if (theta > 2 * Math.PI) theta = 0;
+        } else {
+            let step = (theta_max - theta_min) / 120;
+            // Reverse direction exactly at the limit, do not step past
+            if (direction > 0 && theta + step >= theta_max) {
+                theta = theta_max;
+                direction = -1;
+            } else if (direction < 0 && theta - step <= theta_min) {
+                theta = theta_min;
+                direction = 1;
+            } else {
+                theta += direction * step;
+            }
+        }
+        // Update slider if present
+        let slider = document.getElementById('driver-angle-slider');
+        if (slider) slider.value = theta;
+        animId = requestAnimationFrame(animate);
+    }
+    animate();
+};
+</script>
+</body>
+</html>
