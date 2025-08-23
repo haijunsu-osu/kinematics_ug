@@ -5,8 +5,7 @@ This repository includes kits for teaching kinematics concepts for undergraduate
 
 | Concept                                   | Resource |
 |-------------------------------------------|----------|
-| 1. Polar coordinates                     | [polar_cartesian_visualizer.html](https://haijunsu-osu.github.io/kinematics_ug/polar_cartesian_visualizer.html
-) |
+| 1. Polar coordinates                     | [polar_cartesian_visualizer.html](https://haijunsu-osu.github.io/kinematics_ug/polar_cartesian_visualizer.html) |
 | 2. Mobility formula                      | [mobility_formula.html](mobility_formula.html) |
 | 3. Grashof condition of 4-bar            | [grashof_4bar_visualizer.html](https://haijunsu-osu.github.io/kinematics_ug/grashof_4bar_visualizer.html) |
 | 4. Interactive design and analysis of planar linkages | [linkage2d (external)](https://haijunsu-osu.github.io/linkage2d/linkage2d_design.html) |
