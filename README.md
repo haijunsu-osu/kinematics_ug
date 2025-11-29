@@ -5,7 +5,7 @@ This repository includes kits for teaching kinematics concepts for undergraduate
 
 ### Analysis
 
-| Concept                                   | Resource | GitHub |
+| Concept                                   | App | GitHub |
 |-------------------------------------------|----------|--------|
 | 1. Polar coordinates                      | [polar_cartesian_visualizer.html](https://haijunsu-osu.github.io/kinematics_ug/polar_cartesian_visualizer.html) | — |
 | 2. Mobility formula                       | [mobility_formula](https://ai.studio/apps/drive/1bIN9NS9KiSYLpHulTuylKL9zrC749OOV) | — |
