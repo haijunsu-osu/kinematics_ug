@@ -7,8 +7,8 @@ This repository includes kits for teaching kinematics concepts for undergraduate
 
 | Concept                                   | App | GitHub |
 |-------------------------------------------|----------|--------|
-| 1. Polar coordinates                      | [polar_cartesian_visualizer.html](https://haijunsu-osu.github.io/kinematics_ug/polar_cartesian_visualizer.html) | — |
-| 2. Mobility formula                       | [mobility_formula](https://ai.studio/apps/drive/1bIN9NS9KiSYLpHulTuylKL9zrC749OOV) | — |
+| 1. Mobility formula                       | [mobility_formula](https://ai.studio/apps/drive/1bIN9NS9KiSYLpHulTuylKL9zrC749OOV) | — |
+| 2. Polar coordinates                      | [polar_cartesian_visualizer.html](https://haijunsu-osu.github.io/kinematics_ug/polar_cartesian_visualizer.html) | — |
 | 3. Grashof condition of 4-bar             | [grashof_4bar_visualizer.html](https://haijunsu-osu.github.io/kinematics_ug/grashof_4bar_visualizer.html) | — |
 | Grashof condition of 4-bar (Google AI studio) | [grashof_4bar](https://ai.studio/apps/drive/1aIb708kycWUlTSuTOV9wI2gvZaW6IvAv) | — |
 | 4. Interactive positional analysis of the 4-bar linkage | [fourbar_GUI.html](https://haijunsu-osu.github.io/kinematics_4bar/fourbar_GUI.html) | — |
