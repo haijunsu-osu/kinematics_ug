@@ -19,7 +19,7 @@ This repository includes kits for teaching kinematics concepts for undergraduate
 
 | Concept                                   | App | GitHub |
 |-------------------------------------------|----------|--------|
-| 5. Interactive design and analysis of planar linkages | [linkage2d (external)](https://haijunsu-osu.github.io/linkage2d/linkage2d_design.html) | [—](https://haijunsu-osu.github.io/linkage2d) |
+| 5. Interactive design and analysis of planar linkages | [linkage2d (external)](https://haijunsu-osu.github.io/linkage2d/linkage2d_design.html) |  |
 | 6. Three rocker position synthesis of planar 4R linkages | [kinematic_synthesis.html](https://haijunsu-osu.github.io/rocker_synthesis_4bar/fourbar_rocker_synthesis.html) | [—](https://haijunsu-osu.github.io/rocker_synthesis_4bar) |
 | 7. Three position rigid-body guidance of planar 4R linkages | [fourbar_GUI.html](https://haijunsu-osu.github.io/rigidbody_guidance_4bar/fourbar_GUI.html) | [—](https://haijunsu-osu.github.io/rigidbody_guidance_4bar) |
 
