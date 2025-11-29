@@ -9,8 +9,8 @@ This repository includes kits for teaching kinematics concepts for undergraduate
 | 2. Mobility formula                      | [mobility_formula](https://ai.studio/apps/drive/1bIN9NS9KiSYLpHulTuylKL9zrC749OOV) |
 | 3. Grashof condition of 4-bar            | [grashof_4bar_visualizer.html](https://haijunsu-osu.github.io/kinematics_ug/grashof_4bar_visualizer.html) |
 |   Grashof condition of 4-bar (Google AI studio)        | [grashof_4bar](https://ai.studio/apps/drive/1aIb708kycWUlTSuTOV9wI2gvZaW6IvAv) |
-| 4. Three rocker position synthesis of planar 4R linkages | [kinematic_synthesis.html](https://haijunsu-osu.github.io/rocker_synthesis_4bar/fourbar_rocker_synthesis.html) |
-| 5. Three position rigid-body guidance of planar 4R linkages | [fourbar_GUI.html](https://haijunsu-osu.github.io/rigidbody_guidance_4bar/fourbar_GUI.html) |
-| 6. Interactive positional analysis of the 4-bar linkage | [fourbar_GUI.html](https://haijunsu-osu.github.io/kinematics_4bar/fourbar_GUI.html) |
-| 7. Interactive design and analysis of planar linkages | [linkage2d (external)](https://haijunsu-osu.github.io/linkage2d/linkage2d_design.html) |
+| 4. Interactive positional analysis of the 4-bar linkage | [fourbar_GUI.html](https://haijunsu-osu.github.io/kinematics_4bar/fourbar_GUI.html) |
+| 5. Interactive design and analysis of planar linkages | [linkage2d (external)](https://haijunsu-osu.github.io/linkage2d/linkage2d_design.html) |
+| 6. Three rocker position synthesis of planar 4R linkages | [kinematic_synthesis.html](https://haijunsu-osu.github.io/rocker_synthesis_4bar/fourbar_rocker_synthesis.html) |
+| 7. Three position rigid-body guidance of planar 4R linkages | [fourbar_GUI.html](https://haijunsu-osu.github.io/rigidbody_guidance_4bar/fourbar_GUI.html) |
 
