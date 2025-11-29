@@ -12,7 +12,7 @@ This repository includes kits for teaching kinematics concepts for undergraduate
 | 3. Grashof condition of 4-bar             | [grashof_4bar_visualizer.html](https://haijunsu-osu.github.io/kinematics_ug/grashof_4bar_visualizer.html) | — |
 | Grashof condition of 4-bar (Google AI studio) | [grashof_4bar](https://ai.studio/apps/drive/1aIb708kycWUlTSuTOV9wI2gvZaW6IvAv) | — |
 | 4. Interactive positional analysis of the 4-bar linkage | [fourbar_GUI.html](https://haijunsu-osu.github.io/kinematics_4bar/fourbar_GUI.html) | — |
-| Interactive analysis of planar 4-bar (example 7.1) | [four_bar_analysis_example7_1](https://ai.studio/apps/drive/10a-lVpu1WLTBl--uNUtjPwso4K25JQXR) | [four_bar_analysis_example7_1](https://github.com/haijunsu-osu/four_bar_analysis_example7_1) |
+| Interactive analysis of planar 4-bar (example 7.1) | [four_bar_analysis_example7_1](https://ai.studio/apps/drive/10a-lVpu1WLTBl--uNUtjPwso4K25JQXR?fullscreenApplet=true) | [four_bar_analysis_example7_1](https://github.com/haijunsu-osu/four_bar_analysis_example7_1) |
 | 5. Analysis of slider-crank (example 7.4)    | [slider_crank_example7_4](https://ai.studio/apps/drive/1qT-DOURfzt5fRO70rY3gCq1svPoH61A0) | [slider_crank_example7_4](https://github.com/haijunsu-osu/slider_crank_example7_4) |
 
 ### Synthesis
