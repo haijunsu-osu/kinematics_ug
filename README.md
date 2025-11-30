@@ -29,3 +29,9 @@ This repository includes kits for teaching kinematics concepts for undergraduate
 | Three rocker position synthesis of planar 4R linkages | [kinematic_synthesis.html](https://haijunsu-osu.github.io/rocker_synthesis_4bar/fourbar_rocker_synthesis.html) | [—](https://haijunsu-osu.github.io/rocker_synthesis_4bar) |
 | Three position rigid-body guidance of planar 4R linkages | [fourbar_GUI.html](https://haijunsu-osu.github.io/rigidbody_guidance_4bar/fourbar_GUI.html) | [—](https://haijunsu-osu.github.io/rigidbody_guidance_4bar) |
 
+### Interactive Cam design
+
+| Concept                                   | App | GitHub |
+|-------------------------------------------|----------|--------|
+| Cam design | [Interactive CAM design](https://ai.studio/apps/drive/1fgHMsdQQI062-z5Boze_TQAn_Im9NGuO)) | [https://haijunsu-osu.github.io/rocker_synthesis_4bar](https://github.com/haijunsu-osu/interactive_cam_design) |
+
