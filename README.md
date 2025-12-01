@@ -15,7 +15,7 @@ This repository includes kits for teaching kinematics concepts for undergraduate
 
 | Concept                                   | App | GitHub |
 |-------------------------------------------|----------|--------|
-| Polar coordinates & atan2(y, x)             | [polar_cartesian_visualizer.html](https://haijunsu-osu.github.io/kinematics_ug/polar_cartesian_visualizer.html) | — |
+| Math Review for Kinematics             | [Math Review for Kinematics](https://ai.studio/apps/drive/13r923qolQ3EuauO7qK0sTLs6lS-0ZghT) | — |
 | Interactive positional analysis of the 4-bar linkage | [fourbar_GUI.html](https://haijunsu-osu.github.io/kinematics_4bar/fourbar_GUI.html) | [—](https://haijunsu-osu.github.io/kinematics_4bar) |
 | Interactive analysis of planar 4-bar (example 7.1) | [four_bar_analysis_example7_1](https://ai.studio/apps/drive/10a-lVpu1WLTBl--uNUtjPwso4K25JQXR?fullscreenApplet=true) | [four_bar_analysis_example7_1](https://github.com/haijunsu-osu/four_bar_analysis_example7_1) |
 | Analysis of slider-crank (example 7.4)    | [slider_crank_example7_4](https://ai.studio/apps/drive/1qT-DOURfzt5fRO70rY3gCq1svPoH61A0) | [slider_crank_example7_4](https://github.com/haijunsu-osu/slider_crank_example7_4) |
