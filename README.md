@@ -35,5 +35,8 @@ This repository includes kits for teaching kinematics concepts for undergraduate
 
 | Topic                                   | App | Lecture Notes | Lecture Videos |
 |-------------------------------------------|----------|--------|--------|
-| Cam design | [Interactive CAM design](https://ai.studio/apps/drive/1fgHMsdQQI062-z5Boze_TQAn_Im9NGuO)) | [L1_Cam_vs_Linkages.pdf](Lectures/cam/L1_Cam_vs_Linkages.pdf), [L2_Follower_Synthesis.pdf](Lectures/cam/L2_Follower_Synthesis.pdf), [L3_Follower_By_Transformation.pdf](Lectures/cam/L3_Follower_By_Transformation.pdf), [L4_Cam_Profile_Design.pdf](Lectures/cam/L4_Cam_Profile_Design.pdf) | [L1](https://www.youtube.com/watch?v=FKn6xGQNZmI), [L2](https://www.youtube.com/watch?v=TW_03DTbZgI), [L3](https://www.youtube.com/watch?v=iQgB9nVp3Jg), [L4](https://www.youtube.com/watch?v=rO_oPnYWkGY) |
+| Introduction: Cam vs. linkages | [Interactive CAM design](https://ai.studio/apps/drive/1fgHMsdQQI062-z5Boze_TQAn_Im9NGuO)) | [L1_Cam_vs_Linkages.pdf](Lectures/cam/L1_Cam_vs_Linkages.pdf) | [L1](https://www.youtube.com/watch?v=FKn6xGQNZmI) |
+| Follower program synthesis (1) | [Interactive CAM design](https://ai.studio/apps/drive/1fgHMsdQQI062-z5Boze_TQAn_Im9NGuO)) | [L2_Follower_Synthesis.pdf](Lectures/cam/L2_Follower_Synthesis.pdf) | [L2](https://www.youtube.com/watch?v=TW_03DTbZgI) |
+| Follower program synthesis (2): coordinate transformation | [Interactive CAM design](https://ai.studio/apps/drive/1fgHMsdQQI062-z5Boze_TQAn_Im9NGuO)) | [L3_Follower_By_Transformation.pdf](Lectures/cam/L3_Follower_By_Transformation.pdf) | [L3](https://www.youtube.com/watch?v=iQgB9nVp3Jg) |
+| Cam profile design | [Interactive CAM design](https://ai.studio/apps/drive/1fgHMsdQQI062-z5Boze_TQAn_Im9NGuO)) | [L4_Cam_Profile_Design.pdf](Lectures/cam/L4_Cam_Profile_Design.pdf) | [L4](https://www.youtube.com/watch?v=rO_oPnYWkGY) |
 
