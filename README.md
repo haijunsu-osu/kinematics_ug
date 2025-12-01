@@ -1,6 +1,8 @@
 # ME 3751 Kinematics and Mechanism Design
 This repository includes kits for teaching kinematics concepts for undergraduate students. These kits are developed for ME 3751 Kinematics and Mechanism Design at Department of Mechanical & Aerospace Engineering, The Ohio State University. Contact Prof. Haijun Su (su.298@osu.edu) if you have any question regarding to these kits.
 
+> **⚠️ Warning:** Some materials in this repository are created with AI assistance and may contain errors. Please use them with caution and verify critical information independently.
+
 ## Table of Contents
 
 ### Kinematics and Mechanism Fundamentals
