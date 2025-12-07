@@ -28,10 +28,13 @@ This repository includes kits for teaching kinematics concepts for undergraduate
 
 ### Kinematic Synthesis
 
-| Topic                                   | App | GitHub | Lecture Videos |
+| Topic                                   | App | Lecture Notes | Lecture/Tutorial Videos |
 |-------------------------------------------|----------|--------|--------|
-| Three rocker position synthesis of planar 4R linkages | [kinematic_synthesis.html](https://haijunsu-osu.github.io/rocker_synthesis_4bar/fourbar_rocker_synthesis.html) | [—](https://haijunsu-osu.github.io/rocker_synthesis_4bar) | — |
-| Three position rigid-body guidance of planar 4R linkages | [fourbar_GUI.html](https://haijunsu-osu.github.io/rigidbody_guidance_4bar/fourbar_GUI.html) | [—](https://haijunsu-osu.github.io/rigidbody_guidance_4bar) | — |
+|GCP L1 Intro to Geometric Constraint Programming for Kinematic Synthesis of planar linkages |  | [GCP L1 Intro](Lectures/kinematic_synthesis/GCP%20L1%20Intro%20to%20Geometric%20Constraint%20Programming%20(GCP).pdf)  | [lecture]https://youtu.be/9aGoAuoxDQE |
+| GCP L2 Kinematic synthesis of 4-bar for two or three rocker positions.pdf | [kinematic_synthesis.html](https://haijunsu-osu.github.io/rocker_synthesis_4bar/fourbar_rocker_synthesis.html)  | [GCP L2 Rocker synthesis](Lectures/kinematic_synthesis/GCP%20L2%20Kinematic%20synthesis%20of%204-bar%20for%20two%20or%20three%20rocker%20positions.pdf)  | [lecture]https://youtu.be/F34QCjKYhts, [tutorial](https://youtu.be/EG9GuXPrEKw), [tutorial](https://youtu.be/EG9GuXPrEKw) |
+| GCP L3 Kinematic Synthesis of 4-bar linkages for specified rocker limit positions |  | [GCP L3 Crank Rocker synthesis](Lectures/kinematic_synthesis/GCP%20L3%20Kinematic%20Synthesis%20of%204-bar%20linkages%20for%20specified%20rocker%20limit%20positions.pdf)  | [lecture]https://youtu.be/hmbIf7X8UG8, [tutorial](https://youtu.be/PbWgQ7cQlWY) |
+| GCP L4 Motion Generation of 4-bar Linkages via GCP | [fourbar_GUI.html](https://haijunsu-osu.github.io/rigidbody_guidance_4bar/fourbar_GUI.html)  | [GCP L4 Motion Generation of 4-bar Linkages via GCP](Lectures/kinematic_synthesis/GCP%20L4%20Motion%20Generation%20of%204-bar%20Linkages%20via%20GCP.pdf)  | [lecture]https://youtu.be/plNwn4mHVMY, [tutorial](https://youtu.be/hEsWn-BcXc0) |
+
 
 ### Interactive Cam design
 

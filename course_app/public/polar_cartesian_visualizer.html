@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Polar to Cartesian Coordinates Visualizer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f9fa;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px #0001;
+      padding: 24px;
+    }
+
+    canvas {
+      background: #f0f0f0;
+      border: 1px solid #ccc;
+      display: block;
+      margin: 0 auto 24px;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    .control {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    label {
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    input[type="range"] {
+      width: 120px;
+    }
+
+    input[type="number"] {
+      width: 60px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .desc {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #444;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div style="display: flex; justify-content: center; margin-bottom: 18px;">
+      <button id="tab-visualizer" class="tab-btn" style="margin-right:8px;">Polar/Cartesian Visualizer</button>
+      <button id="tab-atan2" class="tab-btn" style="margin-right:8px;">atan2 vs atan</button>
+      <button id="tab-quiz" class="tab-btn">Quiz</button>
+    </div>
+    <div id="tab-content-quiz" style="display:none;">
+      <h1>Quiz: Polar Coordinates & atan2 vs atan</h1>
+      <div class="desc" style="margin-bottom:18px;">Test your understanding! Submit your answer for each question and
+        get instant feedback. You can show the example on the grid plot if you wish.</div>
+      <div id="quiz-question"></div>
+      <div id="quiz-feedback" style="margin-top:12px; font-weight:bold;"></div>
+      <canvas id="quiz-plot" width="500" height="500" style="margin-top:20px; display:none;"></canvas>
+    </div>
+    <div id="tab-content-visualizer">
+      <h1>Polar & Cartesian Coordinates Visualizer</h1>
+      <div class="desc">
+        Explore how a point's polar coordinates (r, θ) relate to its Cartesian coordinates (x, y).<br>
+        Adjust any value below and see the point update on the grid!
+      </div>
+      <canvas id="plot" width="500" height="500"></canvas>
+      <div class="controls">
+        <div class="control">
+          <label for="x">x</label>
+          <input type="range" id="x" min="-10" max="10" step="0.01" value="3">
+          <input type="number" id="x_num" min="-10" max="10" step="0.01" value="3">
+        </div>
+        <div class="control">
+          <label for="y">y</label>
+          <input type="range" id="y" min="-10" max="10" step="0.01" value="4">
+          <input type="number" id="y_num" min="-10" max="10" step="0.01" value="4">
+        </div>
+        <div class="control">
+          <label for="r">r (radius)</label>
+          <input type="range" id="r" min="0" max="14.15" step="0.01" value="5">
+          <input type="number" id="r_num" min="0" max="14.15" step="0.01" value="5">
+        </div>
+        <div class="control">
+          <label for="theta">θ (degrees)</label>
+          <input type="range" id="theta" min="-180" max="180" step="0.1" value="53.13">
+          <input type="number" id="theta_num" min="-180" max="180" step="0.1" value="53.13">
+        </div>
+      </div>
+      <div class="desc" style="margin-top:20px; font-size:15px;">
+        <b>Polar to Cartesian:</b> x = r × cos(θ), y = r × sin(θ)<br>
+        <b>Cartesian to Polar:</b> r = √(x² + y²), θ = atan2(y, x)
+      </div>
+    </div>
+    <div id="tab-content-atan2" style="display:none;">
+      <h1>atan2(y, x) vs atan(y/x)</h1>
+      <div class="desc"
+        style="background:#f6f6ff; border-left:4px solid #0074d9; padding:10px 16px; margin-bottom:18px;">
+        <b>How to compute atan2(y, x) if you only have atan(y/x) on your calculator:</b><br>
+        <ul style="text-align:left; max-width:600px; margin:8px auto 0 auto;">
+          <li>If x &gt; 0: <b>atan2(y, x) = atan(y/x)</b></li>
+          <li>If x &lt; 0 and y ≥ 0: <b>atan2(y, x) = atan(y/x) + 180°</b></li>
+          <li>If x &lt; 0 and y &lt; 0: <b>atan2(y, x) = atan(y/x) - 180°</b></li>
+          <li>If x = 0 and y &gt; 0: <b>atan2(y, x) = atan(y/x) = +90° (π/2)</b></li>
+          <li>If x = 0 and y &lt; 0: <b>atan2(y, x) = atan(y/x) = -90° (-π/2)</b></li>
+          <li>If x = 0 and y = 0: <b>atan2(y, x) and atan(y/x) are both undetermined</b></li>
+        </ul>
+        <span style="font-size:14px; color:#555;">(Make sure your calculator is in degree mode!)</span>
+      </div>
+      <div class="desc">
+        <b>atan2(y, x)</b> returns the angle from the positive x-axis to the point (x, y), in degrees, in the range
+        [-180°, 180°].<br>
+        <b>atan(y/x)</b> returns an angle in (-90°, 90°), but does not distinguish between quadrants.<br>
+        <br>
+        <b>Examples:</b>
+      </div>
+      <div style="display: flex; gap: 24px; align-items: flex-start; justify-content: center;">
+        <div id="atan2-examples" style="min-width:270px;"></div>
+        <canvas id="atan2-plot" width="500" height="500" style="margin-top:0;"></canvas>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Tab logic
+    const tabVisualizerBtn = document.getElementById('tab-visualizer');
+    const tabAtan2Btn = document.getElementById('tab-atan2');
+    const tabVisualizer = document.getElementById('tab-content-visualizer');
+    const tabAtan2 = document.getElementById('tab-content-atan2');
+    tabVisualizerBtn.onclick = () => {
+      tabVisualizer.style.display = '';
+      tabAtan2.style.display = 'none';
+      tabVisualizerBtn.style.fontWeight = 'bold';
+      tabAtan2Btn.style.fontWeight = 'normal';
+    };
+    tabAtan2Btn.onclick = () => {
+      tabVisualizer.style.display = 'none';
+      tabAtan2.style.display = '';
+      tabVisualizerBtn.style.fontWeight = 'normal';
+      tabAtan2Btn.style.fontWeight = 'bold';
+      drawAtan2Examples();
+    };
+    tabVisualizerBtn.style.fontWeight = 'bold';
+
+    // Embed mode logic
+    const urlParams = new URLSearchParams(window.location.search);
+    const isEmbed = urlParams.get('embed') === 'true';
+
+    if (isEmbed) {
+      document.body.style.padding = '0';
+      document.body.style.background = '#fff';
+      const container = document.querySelector('.container');
+      container.style.margin = '0';
+      container.style.maxWidth = '100%';
+      container.style.boxShadow = 'none';
+      container.style.borderRadius = '0';
+      container.style.padding = '10px';
+
+      // Hide headers and descriptions in visualizer tab
+      const visHeader = document.querySelector('#tab-content-visualizer h1');
+      if (visHeader) visHeader.style.display = 'none';
+      const visDesc = document.querySelector('#tab-content-visualizer .desc');
+      if (visDesc) visDesc.style.display = 'none';
+
+      // Hide headers and descriptions in atan2 tab
+      const atan2Header = document.querySelector('#tab-content-atan2 h1');
+      if (atan2Header) atan2Header.style.display = 'none';
+
+      // Hide headers and descriptions in quiz tab
+      const quizHeader = document.querySelector('#tab-content-quiz h1');
+      if (quizHeader) quizHeader.style.display = 'none';
+      const quizDesc = document.querySelector('#tab-content-quiz .desc');
+      if (quizDesc) quizDesc.style.display = 'none';
+    }
+
+    // ...existing code for visualizer...
+    const canvas = document.getElementById('plot');
+    const ctx = canvas.getContext('2d');
+    const size = 500;
+    const origin = { x: size / 2, y: size / 2 };
+    const scale = 25; // 1 unit = 25px
+
+    // Controls
+    const xRange = document.getElementById('x');
+    const yRange = document.getElementById('y');
+    const rRange = document.getElementById('r');
+    const thetaRange = document.getElementById('theta');
+    const xNum = document.getElementById('x_num');
+    const yNum = document.getElementById('y_num');
+    const rNum = document.getElementById('r_num');
+    const thetaNum = document.getElementById('theta_num');
+
+    // Initial values
+    let state = {
+      x: 3,
+      y: 4,
+      r: 5,
+      theta: 53.13 // degrees
+    };
+
+    function toRadians(deg) { return deg * Math.PI / 180; }
+    function toDegrees(rad) { return rad * 180 / Math.PI; }
+
+    function updateFromCartesian() {
+      state.r = Math.sqrt(state.x * state.x + state.y * state.y);
+      state.theta = toDegrees(Math.atan2(state.y, state.x));
+      if (state.theta < 0) state.theta += 360;
+    }
+    function updateFromPolar() {
+      state.x = state.r * Math.cos(toRadians(state.theta));
+      state.y = state.r * Math.sin(toRadians(state.theta));
+    }
+
+    function syncInputs(source) {
+      if (source === 'cartesian') {
+        updateFromCartesian();
+      } else if (source === 'polar') {
+        updateFromPolar();
+      }
+      // Clamp values
+      state.x = Math.max(-10, Math.min(10, state.x));
+      state.y = Math.max(-10, Math.min(10, state.y));
+      state.r = Math.max(0, Math.min(14.15, state.r));
+      // Clamp theta to [-180, 180]
+      if (state.theta > 180) state.theta -= 360;
+      if (state.theta < -180) state.theta += 360;
+      // Update all inputs
+      xRange.value = xNum.value = state.x.toFixed(2);
+      yRange.value = yNum.value = state.y.toFixed(2);
+      rRange.value = rNum.value = state.r.toFixed(2);
+      thetaRange.value = thetaNum.value = state.theta.toFixed(2);
+      draw();
+    }
+
+    // Event listeners
+    [xRange, xNum].forEach(el => el.addEventListener('input', e => {
+      state.x = parseFloat(e.target.value);
+      syncInputs('cartesian');
+    }));
+    [yRange, yNum].forEach(el => el.addEventListener('input', e => {
+      state.y = parseFloat(e.target.value);
+      syncInputs('cartesian');
+    }));
+    [rRange, rNum].forEach(el => el.addEventListener('input', e => {
+      state.r = parseFloat(e.target.value);
+      syncInputs('polar');
+    }));
+    [thetaRange, thetaNum].forEach(el => el.addEventListener('input', e => {
+      state.theta = parseFloat(e.target.value);
+      syncInputs('polar');
+    }));
+
+    function drawGrid(ctx) {
+      ctx.save();
+      ctx.clearRect(0, 0, size, size);
+      ctx.strokeStyle = '#ddd';
+      ctx.lineWidth = 1;
+      for (let i = -10; i <= 10; i++) {
+        // Vertical
+        ctx.beginPath();
+        ctx.moveTo(origin.x + i * scale, 0);
+        ctx.lineTo(origin.x + i * scale, size);
+        ctx.stroke();
+        // Horizontal
+        ctx.beginPath();
+        ctx.moveTo(0, origin.y + i * scale);
+        ctx.lineTo(size, origin.y + i * scale);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+    function drawAxes(ctx) {
+      ctx.save();
+      ctx.strokeStyle = '#333';
+      ctx.lineWidth = 2;
+      // x-axis
+      ctx.beginPath();
+      ctx.moveTo(0, origin.y);
+      ctx.lineTo(size, origin.y);
+      ctx.stroke();
+      // y-axis
+      ctx.beginPath();
+      ctx.moveTo(origin.x, 0);
+      ctx.lineTo(origin.x, size);
+      ctx.stroke();
+      // Origin
+      ctx.beginPath();
+      ctx.arc(origin.x, origin.y, 4, 0, 2 * Math.PI);
+      ctx.fillStyle = '#333';
+      ctx.fill();
+      ctx.restore();
+    }
+    function drawPoint() {
+      const px = origin.x + state.x * scale;
+      const py = origin.y - state.y * scale;
+      ctx.save();
+      // Draw radius line
+      ctx.strokeStyle = '#0074d9';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(origin.x, origin.y);
+      ctx.lineTo(px, py);
+      ctx.stroke();
+      // Draw point
+      ctx.beginPath();
+      ctx.arc(px, py, 7, 0, 2 * Math.PI);
+      ctx.fillStyle = '#ff4136';
+      ctx.fill();
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      // Draw projection lines
+      ctx.setLineDash([5, 5]);
+      ctx.strokeStyle = '#aaa';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(px, py);
+      ctx.lineTo(px, origin.y);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(px, py);
+      ctx.lineTo(origin.x, py);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.restore();
+      // Draw labels
+      ctx.save();
+      ctx.font = '15px Arial';
+      ctx.fillStyle = '#222';
+      ctx.fillText(`(x, y) = (${state.x.toFixed(2)}, ${state.y.toFixed(2)})`, px + 10, py - 10);
+      ctx.fillStyle = '#0074d9';
+      // Draw polar label near the radius
+      const labelAngle = toRadians(state.theta);
+      const labelR = state.r / 2 * scale;
+      const lx = origin.x + labelR * Math.cos(labelAngle);
+      const ly = origin.y - labelR * Math.sin(labelAngle);
+      ctx.fillText(`(r, θ) = (${state.r.toFixed(2)}, ${state.theta.toFixed(2)}°)`, lx + 10, ly - 10);
+      ctx.restore();
+    }
+    function draw() {
+      drawGrid(ctx);
+      drawAxes(ctx);
+      drawPoint();
+    }
+    syncInputs();
+
+    // --- atan2 vs atan tab logic ---
+    // --- State for checkboxes ---
+    let atan2ExampleState = null;
+    function drawAtan2Examples() {
+      const examples = [
+        { x: 2, y: 2, label: 'x > 0, y > 0' },
+        { x: -2, y: 2, label: 'x < 0, y > 0' },
+        { x: -2, y: -2, label: 'x < 0, y < 0' },
+        { x: 2, y: -2, label: 'x > 0, y < 0' },
+        { x: 0, y: 4, label: 'x = 0, y > 0' },
+        { x: 0, y: -4, label: 'x = 0, y < 0' },
+        { x: -4, y: 0, label: 'x < 0, y = 0' },
+        { x: 4, y: 0, label: 'x > 0, y = 0' },
+      ];
+      if (!atan2ExampleState) {
+        atan2ExampleState = examples.map(() => true);
+      }
+      const atan2Plot = document.getElementById('atan2-plot');
+      const ctx2 = atan2Plot.getContext('2d');
+      drawGrid(ctx2);
+      drawAxes(ctx2);
+      // Draw all example points and angles
+      let html = '';
+      examples.forEach((ex, i) => {
+        const r = Math.sqrt(ex.x * ex.x + ex.y * ex.y);
+        let theta2 = toDegrees(Math.atan2(ex.y, ex.x));
+        let theta1 = toDegrees(Math.atan(ex.y / (ex.x === 0 ? 1e-10 : ex.x)));
+        // Highlight if different (difference > 1 degree)
+        const diff = Math.abs(((theta2 - theta1 + 540) % 360) - 180); // minimal angle diff
+        const isDiff = diff > 1;
+        // Color for highlight
+        const color = isDiff ? '#e74c3c' : '#222';
+        const pointColor = isDiff ? '#e74c3c' : '#ff851b';
+        const arc2Color = isDiff ? '#e74c3c' : '#0074d9';
+        const arc1Color = isDiff ? '#e67e22' : '#2ecc40';
+        // Checkbox
+        html += `<div style="margin-bottom:8px; background:${isDiff ? '#ffeaea' : 'none'}; padding:4px 6px; border-radius:5px;">
+          <input type="checkbox" id="excb${i}" ${atan2ExampleState[i] ? 'checked' : ''} style="margin-right:4px;">
+          <b style="color:${color}">(${ex.x}, ${ex.y})</b> <span style="color:${color}">(${ex.label})</span>:<br>
+          &nbsp; <span style="color:${arc2Color}">atan2(y, x) = ${theta2.toFixed(2)}°</span><br>
+          &nbsp; <span style="color:${arc1Color}">atan(y/x) = ${theta1.toFixed(2)}°</span>
+        </div>`;
+      });
+      html +=
+        '<div style="margin-top:10px; font-size:14px;">' +
+        '<span style="color:#0074d9;">Blue solid arc: atan2(y, x)</span> &nbsp; ' +
+        '<span style="color:#2ecc40;">Green dashed arc: atan(y/x)</span> &nbsp; ' +
+        '<span style="color:#e74c3c;">Red: Highlighted when different</span>' +
+        '</div>';
+      document.getElementById('atan2-examples').innerHTML = html;
+      // Add checkbox listeners
+      examples.forEach((ex, i) => {
+        document.getElementById('excb' + i).onchange = function () {
+          atan2ExampleState[i] = this.checked;
+          drawAtan2Examples();
+        };
+      });
+      // Draw points and arcs for checked examples
+      examples.forEach((ex, i) => {
+        if (!atan2ExampleState[i]) return;
+        const r = Math.sqrt(ex.x * ex.x + ex.y * ex.y);
+        let theta2 = toDegrees(Math.atan2(ex.y, ex.x));
+        let theta1 = toDegrees(Math.atan(ex.y / (ex.x === 0 ? 1e-10 : ex.x)));
+        const diff = Math.abs(((theta2 - theta1 + 540) % 360) - 180);
+        const isDiff = diff > 1;
+        const pointColor = isDiff ? '#e74c3c' : '#ff851b';
+        const arc2Color = isDiff ? '#e74c3c' : '#0074d9';
+        const arc1Color = isDiff ? '#e67e22' : '#2ecc40';
+        const px = origin.x + ex.x * scale;
+        const py = origin.y - ex.y * scale;
+        ctx2.save();
+        ctx2.beginPath();
+        ctx2.arc(px, py, 7, 0, 2 * Math.PI);
+        ctx2.fillStyle = pointColor;
+        ctx2.fill();
+        ctx2.strokeStyle = '#fff';
+        ctx2.lineWidth = 2;
+        ctx2.stroke();
+        // Draw radius line (atan2)
+        ctx2.beginPath();
+        ctx2.moveTo(origin.x, origin.y);
+        ctx2.lineTo(px, py);
+        ctx2.strokeStyle = arc2Color;
+        ctx2.lineWidth = 2;
+        ctx2.stroke();
+        // Draw angle arc for atan2
+        ctx2.beginPath();
+        ctx2.arc(origin.x, origin.y, 40 + i * 10, 0, toRadians(theta2), theta2 < 0);
+        ctx2.strokeStyle = arc2Color;
+        ctx2.lineWidth = 2;
+        ctx2.setLineDash([4, 3]);
+        ctx2.stroke();
+        ctx2.setLineDash([]);
+        // Draw angle arc for atan
+        ctx2.beginPath();
+        ctx2.arc(origin.x, origin.y, 40 + i * 10, 0, toRadians(theta1), theta1 < 0);
+        ctx2.strokeStyle = arc1Color;
+        ctx2.lineWidth = 2;
+        ctx2.setLineDash([2, 6]);
+        ctx2.stroke();
+        ctx2.setLineDash([]);
+        // Label
+        ctx2.font = '13px Arial';
+        ctx2.fillStyle = pointColor;
+        ctx2.fillText(`(${ex.x}, ${ex.y})`, px + 8, py - 8);
+        ctx2.restore();
+      });
+    }
+    // --- Quiz Tab Logic ---
+    const tabQuizBtn = document.getElementById('tab-quiz');
+    const tabQuiz = document.getElementById('tab-content-quiz');
+    tabQuizBtn.onclick = () => {
+      tabVisualizer.style.display = 'none';
+      tabAtan2.style.display = 'none';
+      tabQuiz.style.display = '';
+      tabVisualizerBtn.style.fontWeight = 'normal';
+      tabAtan2Btn.style.fontWeight = 'normal';
+      tabQuizBtn.style.fontWeight = 'bold';
+      startQuiz();
+    };
+
+    // Quiz question generator
+    let quizQuestions = [];
+    let quizOrder = [];
+    let quizCurrent = 0;
+    function randomInt(a, b) { return Math.floor(Math.random() * (b - a + 1)) + a; }
+    function randomFloat(a, b, d = 2) { return +(Math.random() * (b - a) + a).toFixed(d); }
+    function deg(rad) { return rad * 180 / Math.PI; }
+    function rad(deg) { return deg * Math.PI / 180; }
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+    function makeQuizQuestions() {
+      let arr = [];
+      // 1. two examples for given x and y, calculate r and theta
+      for (let i = 0; i < 2; ++i) {
+        let x = randomInt(-8, 8); let y = randomInt(-8, 8);
+        if (x === 0 && y === 0) x = 1;
+        let r = +(Math.sqrt(x * x + y * y)).toFixed(2);
+        let theta = +(deg(Math.atan2(y, x))).toFixed(2);
+        // Randomize sign for theta
+        let thetaAlt = -theta;
+        let rAlt = -r;
+        let thetaWrong = +(theta + randomInt(10, 40)).toFixed(2);
+        let rWrong = +(r + randomInt(2, 5)).toFixed(2);
+        let options = shuffle([
+          { r, theta, correct: true },
+          { r: r, theta: thetaAlt, correct: false },
+          { r: rWrong, theta: theta, correct: false },
+          { r: r, theta: thetaWrong, correct: false }
+        ]);
+        arr.push({
+          type: 'xy2rt',
+          x, y, r, theta,
+          prompt: `Given x = ${x}, y = ${y}, what are r and θ (degrees, in [-180, 180])?`,
+          options
+        });
+      }
+      // 2. two examples for given r and theta, calculate x and y
+      for (let i = 0; i < 2; ++i) {
+        let r = randomInt(1, 10);
+        let theta = randomFloat(-180, 180);
+        let x = +(r * Math.cos(rad(theta))).toFixed(2);
+        let y = +(r * Math.sin(rad(theta))).toFixed(2);
+        // Randomize sign for x, y
+        let xAlt = -x, yAlt = -y;
+        let xWrong = +(x + randomInt(2, 5)).toFixed(2);
+        let yWrong = +(y + randomInt(2, 5)).toFixed(2);
+        let options = shuffle([
+          { x, y, correct: true },
+          { x: xAlt, y: yAlt, correct: false },
+          { x: xWrong, y: y, correct: false },
+          { x: x, y: yWrong, correct: false }
+        ]);
+        arr.push({
+          type: 'rt2xy',
+          r, theta, x, y,
+          prompt: `Given r = ${r}, θ = ${theta}°, what are x and y?`,
+          options
+        });
+      }
+      // 3. two examples when atan2 is the same as atan
+      for (let i = 0; i < 2; ++i) {
+        let x = randomInt(1, 8); // x > 0
+        let y = randomInt(-8, 8);
+        let atan2v = +(deg(Math.atan2(y, x))).toFixed(2);
+        let atanv = +(deg(Math.atan(y / x))).toFixed(2);
+        // Randomize sign
+        let atan2vAlt = -atan2v, atanvAlt = -atanv;
+        let atan2vWrong = +(atan2v + randomInt(10, 40)).toFixed(2);
+        let atanvWrong = +(atanv + randomInt(10, 40)).toFixed(2);
+        let options = shuffle([
+          { atan2v, atanv, correct: true },
+          { atan2v: atan2vAlt, atanv: atanvAlt, correct: false },
+          { atan2v: atan2vWrong, atanv, correct: false },
+          { atan2v, atanv: atanvWrong, correct: false }
+        ]);
+        arr.push({
+          type: 'atan_same',
+          x, y, atan2v, atanv,
+          prompt: `For x = ${x} > 0, y = ${y}, what are atan2(y, x) and atan(y/x)?`,
+          options
+        });
+      }
+      // 4. two examples when atan2 is different from atan
+      for (let i = 0; i < 2; ++i) {
+        let x = randomInt(-8, -1); // x < 0
+        let y = randomInt(-8, 8);
+        let atan2v = +(deg(Math.atan2(y, x))).toFixed(2);
+        let atanv = +(deg(Math.atan(y / x))).toFixed(2);
+        // Randomize sign
+        let atan2vAlt = -atan2v, atanvAlt = -atanv;
+        let atan2vWrong = +(atan2v + randomInt(10, 40)).toFixed(2);
+        let atanvWrong = +(atanv + randomInt(10, 40)).toFixed(2);
+        let options = shuffle([
+          { atan2v, atanv, correct: true },
+          { atan2v: atan2vAlt, atanv: atanvAlt, correct: false },
+          { atan2v: atan2vWrong, atanv, correct: false },
+          { atan2v, atanv: atanvWrong, correct: false }
+        ]);
+        arr.push({
+          type: 'atan_diff',
+          x, y, atan2v, atanv,
+          prompt: `For x = ${x} < 0, y = ${y}, what are atan2(y, x) and atan(y/x)?`,
+          options
+        });
+      }
+      // Randomize order
+      quizOrder = arr.map((_, i) => i).sort(() => Math.random() - 0.5);
+      quizQuestions = arr;
+      quizCurrent = 0;
+    }
+
+    function startQuiz() {
+      makeQuizQuestions();
+      showQuizQuestion();
+      document.getElementById('quiz-feedback').innerHTML = '';
+      document.getElementById('quiz-plot').style.display = 'none';
+    }
+
+    function showQuizQuestion() {
+      const q = quizQuestions[quizOrder[quizCurrent]];
+      let html = `<div style="font-size:17px; margin-bottom:10px;">Q${quizCurrent + 1} of ${quizQuestions.length}: ${q.prompt}</div>`;
+      html += '<form id="quiz-form">';
+      if (q.type === 'xy2rt') {
+        q.options.forEach((opt, idx) => {
+          html += `<label><input type="radio" name="quiz" value="${idx}"> r = ${opt.r}, θ = ${opt.theta}°</label><br>`;
+        });
+      } else if (q.type === 'rt2xy') {
+        q.options.forEach((opt, idx) => {
+          html += `<label><input type="radio" name="quiz" value="${idx}"> x = ${opt.x}, y = ${opt.y}</label><br>`;
+        });
+      } else if (q.type === 'atan_same' || q.type === 'atan_diff') {
+        q.options.forEach((opt, idx) => {
+          html += `<label><input type="radio" name="quiz" value="${idx}"> atan2(y, x) = ${opt.atan2v}°, atan(y/x) = ${opt.atanv}°</label><br>`;
+        });
+      }
+      html += '</form>';
+      html += `<br><label><input type="checkbox" id="quiz-showplot"> Show this example on the grid</label>`;
+      html += `<br><button id="quiz-submit" style="margin-top:10px;">Submit Answer</button>`;
+      if (quizCurrent > 0) {
+        html += `<button id=\"quiz-prev\" style=\"margin-left:10px;\">Previous</button>`;
+      }
+      if (quizCurrent < quizQuestions.length - 1) {
+        html += `<button id=\"quiz-next\" style=\"margin-left:10px;\">Next</button>`;
+      }
+      document.getElementById('quiz-question').innerHTML = html;
+      document.getElementById('quiz-submit').onclick = submitQuizAnswer;
+      if (quizCurrent > 0) {
+        document.getElementById('quiz-prev').onclick = function (e) {
+          e.preventDefault();
+          quizCurrent--;
+          showQuizQuestion();
+          document.getElementById('quiz-feedback').innerHTML = '';
+        };
+      }
+      if (quizCurrent < quizQuestions.length - 1) {
+        document.getElementById('quiz-next').onclick = function (e) {
+          e.preventDefault();
+          quizCurrent++;
+          showQuizQuestion();
+          document.getElementById('quiz-feedback').innerHTML = '';
+        };
+      }
+      document.getElementById('quiz-showplot').onchange = function () { showQuizPlot(); };
+      showQuizPlot();
+    }
+
+    function showQuizPlot() {
+      const q = quizQuestions[quizOrder[quizCurrent]];
+      const show = document.getElementById('quiz-showplot').checked;
+      const quizPlot = document.getElementById('quiz-plot');
+      if (!show) { quizPlot.style.display = 'none'; return; }
+      quizPlot.style.display = '';
+      const ctxq = quizPlot.getContext('2d');
+      drawGrid(ctxq);
+      drawAxes(ctxq);
+      ctxq.save();
+      ctxq.font = '15px Arial';
+      let px, py;
+      if (q.type === 'xy2rt' || q.type === 'atan_same' || q.type === 'atan_diff') {
+        px = origin.x + q.x * scale;
+        py = origin.y - q.y * scale;
+        ctxq.beginPath();
+        ctxq.arc(px, py, 10, 0, 2 * Math.PI);
+        ctxq.fillStyle = '#ff4136';
+        ctxq.fill();
+        ctxq.strokeStyle = '#fff';
+        ctxq.lineWidth = 2;
+        ctxq.stroke();
+        ctxq.fillStyle = '#222';
+        ctxq.fillText(`(${q.x}, ${q.y})`, px + 12, py - 10);
+      } else if (q.type === 'rt2xy') {
+        let x = +(q.r * Math.cos(rad(q.theta))).toFixed(2);
+        let y = +(q.r * Math.sin(rad(q.theta))).toFixed(2);
+        px = origin.x + x * scale;
+        py = origin.y - y * scale;
+        ctxq.beginPath();
+        ctxq.arc(px, py, 10, 0, 2 * Math.PI);
+        ctxq.fillStyle = '#0074d9';
+        ctxq.fill();
+        ctxq.strokeStyle = '#fff';
+        ctxq.lineWidth = 2;
+        ctxq.stroke();
+        ctxq.fillStyle = '#222';
+        ctxq.fillText(`(${x}, ${y})`, px + 12, py - 10);
+      }
+      ctxq.restore();
+    }
+
+    function submitQuizAnswer() {
+      const q = quizQuestions[quizOrder[quizCurrent]];
+      let correct = false, feedback = '';
+      const form = document.getElementById('quiz-form');
+      const selected = form.quiz.value;
+      if (selected === undefined) {
+        document.getElementById('quiz-feedback').innerHTML = 'Please select an answer.';
+        return;
+      }
+      const opt = q.options[selected];
+      correct = !!opt.correct;
+      if (correct) {
+        feedback = '✅ Correct!';
+        document.getElementById('quiz-feedback').innerHTML = feedback;
+        // Do not auto-advance, let user click Next
+      } else {
+        feedback = '❌ Incorrect. Try again!';
+        document.getElementById('quiz-feedback').innerHTML = feedback;
+      }
+    }
+  </script>
+</body>
+
+</html>
