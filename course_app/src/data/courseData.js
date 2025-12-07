@@ -78,16 +78,30 @@ export const courseData = [
         title: "Kinematic Synthesis",
         topics: [
             {
+                title: "GCP L1 Intro to Geometric Constraint Programming",
+                notes: "/Lectures/synthesis/GCP L1 Intro to Geometric Constraint Programming (GCP).pdf",
+                video: "https://www.youtube.com/embed/9aGoAuoxDQE",
+                app: null,
+                chat: "https://notebooklm.google.com/"
+            },
+            {
                 title: "3 rocker positions (4-bar)",
-                notes: null,
-                video: null,
+                notes: "/Lectures/synthesis/GCP L2 Kinematic synthesis of 4-bar for two or three rocker positions.pdf",
+                video: "https://www.youtube.com/embed/F34QCjKYhts",
                 app: "https://haijunsu-osu.github.io/rocker_synthesis_4bar/fourbar_rocker_synthesis.html",
                 chat: "https://notebooklm.google.com/"
             },
             {
+                title: "GCP L3 Kinematic Synthesis of 4-bar linkages",
+                notes: "/Lectures/synthesis/GCP L3 Kinematic Synthesis of 4-bar linkages for specified rocker limit positions.pdf",
+                video: "https://www.youtube.com/embed/hmbIf7X8UG8",
+                app: null,
+                chat: "https://notebooklm.google.com/"
+            },
+            {
                 title: "3 positions motion generation(4-bar)",
-                notes: null,
-                video: null,
+                notes: "/Lectures/synthesis/GCP L4 Motion Generation of 4-bar Linkages via GCP.pdf",
+                video: "https://www.youtube.com/embed/plNwn4mHVMY",
                 app: "https://haijunsu-osu.github.io/rigidbody_guidance_4bar/fourbar_GUI.html",
                 chat: "https://notebooklm.google.com/"
             }
