@@ -3,6 +3,8 @@ This repository includes kits for teaching kinematics concepts for undergraduate
 
 > **⚠️ Warning:** Some materials in this repository are created with AI assistance and may contain errors. Please use them with caution and verify critical information independently.
 
+**Course Web App:** [https://haijunsu-osu.github.io/kinematics_ug/course_app/index.html](https://haijunsu-osu.github.io/kinematics_ug/course_app/index.html)
+
 ## Table of Contents
 
 ### Kinematics and Mechanism Fundamentals
