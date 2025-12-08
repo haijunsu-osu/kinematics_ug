@@ -11,14 +11,14 @@ export const courseData = [
             },
             {
                 title: "L2: Mobility formula",
-                notes: null,
+                notes: "Lectures/Kinematics_fundamentals/L2_Mobility_Analysis.pdf",
                 video: "https://www.youtube.com/embed/RjwD9gGKO4Y",
                 app: "https://ai.studio/apps/drive/1bIN9NS9KiSYLpHulTuylKL9zrC749OOV?fullscreenApplet=true",
                 chat: "https://notebooklm.google.com/notebook/cd7839ef-c2e8-47ec-920a-3a4f5b7f0518"
             },
             {
                 title: "L3: Grashof condition of 4-bar",
-                notes: null,
+                notes: "Lectures/Kinematics_fundamentals/L3_Grashof_4bar.pdf",
                 video: "https://www.youtube.com/embed/qO8niNpd6cM",
                 app: [
                     "grashof_4bar_visualizer.html",

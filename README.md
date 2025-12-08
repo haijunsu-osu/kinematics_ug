@@ -12,8 +12,8 @@ This repository includes kits for teaching kinematics concepts for undergraduate
 | Concept                                   | App | Lecture Notes | Lecture Videos |
 |-------------------------------------------|----------|--------|--------|
 | Kinematics overview                       | [overview] | [Intro to Kinematics The_Art_and_Science_of_Motion.pdf](Lectures/Kinematics_fundamentals/Intro%20to%20Kinematics%20The_Art_and_Science_of_Motion.pdf) | [ME 3751 Kinematics Fundamental L1](https://www.youtube.com/watch?v=YTb2WCOEZdc) |
-| Mobility formula                       | [mobility_formula](https://ai.studio/apps/drive/1bIN9NS9KiSYLpHulTuylKL9zrC749OOV)        |  | [ME 3751 Kinematics Fundamental L2](https://www.youtube.com/watch?v=RjwD9gGKO4Y) |
-| Grashof condition of 4-bar             | [grashof_4bar_visualizer.html](https://haijunsu-osu.github.io/kinematics_ug/grashof_4bar_visualizer.html) | [—](https://haijunsu-osu.github.io/kinematics_ug) | [ME 3751 Kinematics Fundamental L3](https://www.youtube.com/watch?v=qO8niNpd6cM) |
+| Mobility formula                       | [mobility_formula](https://ai.studio/apps/drive/1bIN9NS9KiSYLpHulTuylKL9zrC749OOV)        | [Mobility Analysis](Lectures/Kinematics_fundamentals/L2_Mobility_Analysis.pdf)  | [ME 3751 Kinematics Fundamental L2](https://www.youtube.com/watch?v=RjwD9gGKO4Y) |
+| Grashof condition of 4-bar             | [grashof_4bar_visualizer.html](https://haijunsu-osu.github.io/kinematics_ug/grashof_4bar_visualizer.html) | [Grashof condition of 4-bar](Lectures/Kinematics_fundamentals/L3_Grashof_4bar.pdf)  | [ME 3751 Kinematics Fundamental L3](https://www.youtube.com/watch?v=qO8niNpd6cM) |
 | Grashof condition of 4-bar (Google AI studio) | [grashof_4bar](https://ai.studio/apps/drive/1aIb708kycWUlTSuTOV9wI2gvZaW6IvAv) | — | — |
 
 ### Kinematic Analysis
