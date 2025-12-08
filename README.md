@@ -27,6 +27,8 @@ This repository includes kits for teaching kinematics concepts for undergraduate
 | Interactive positional analysis of the 4-bar linkage | [fourbar_GUI.html](https://haijunsu-osu.github.io/kinematics_4bar/fourbar_GUI.html) |  | — |
 | Interactive Design of Planar linkages    | [planar linkages design by WPI](https://app.pmksplus.com/)| | — |
 | Interactive design and analysis of planar linkages | [linkage2d (under development)](https://haijunsu-osu.github.io/linkage2d/linkage2d_design.html) |  | — |
+| Limit analysis of crank-rocker linkage | [limit analysis](https://ai.studio/apps/drive/1SkdGyaAV9GIabGYguUcX8hNRnja30KgB?fullscreenApplet=true) | (Lectures/linkage_analysis/Limit_Analysis_of_Crank_Rocker_Linkages.pdf) | https://youtu.be/ekRb1oApV8I |
+
 
 ### Kinematic Synthesis
 

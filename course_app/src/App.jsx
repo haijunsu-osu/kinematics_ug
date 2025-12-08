@@ -67,17 +67,16 @@ function App() {
     setActiveTopic(topic);
     const newTabs = getTabsForTopic(topic);
 
-    // Check if the exact active tab exists in the new topic
-    const activeTabExists = newTabs.find(t => t.id === activeTab);
-    if (activeTabExists && !activeTabExists.disabled) {
-      return; // Stay on current tab
+    // Priority: notes first, then video, then first available
+    const notesTab = newTabs.find(t => t.id === 'notes' && !t.disabled);
+    if (notesTab) {
+      setActiveTab('notes');
+      return;
     }
 
-    // Try to switch to a tab of the same type (e.g., 'app-1' -> 'app' or 'app-0')
-    const currentType = activeTab.split('-')[0];
-    const sameTypeTab = newTabs.find(t => t.id.startsWith(currentType) && !t.disabled);
-    if (sameTypeTab) {
-      setActiveTab(sameTypeTab.id);
+    const videoTab = newTabs.find(t => t.id === 'video' && !t.disabled);
+    if (videoTab) {
+      setActiveTab('video');
       return;
     }
 
@@ -142,42 +141,63 @@ function App() {
           textTransform: 'uppercase',
           letterSpacing: '0.05em',
           color: '#1f2937', // gray-800
-          backgroundColor: '#ffffff'
         }}>
-          Course Explorer
+          ME 3751 Explorer
         </div>
 
-        <div className="flex-1 overflow-y-auto custom-scrollbar">
+        <div style={{ flex: 1, overflowY: 'auto', padding: '16px' }}>
           {courseData.map((module, moduleIdx) => (
-            <div key={moduleIdx} className="mb-8 pb-4 border-b-2 border-gray-200 last:border-b-0 last:mb-0 last:pb-0">
+            <div key={moduleIdx} style={{ marginBottom: '20px' }}>
+              {/* Module Title - Purple color */}
               <button
                 onClick={() => toggleModule(moduleIdx)}
-                className="w-full flex items-center py-3 text-lg font-black text-gray-900 hover:text-blue-700 transition-colors text-left uppercase tracking-wide"
-                style={{ outline: 'none' }}
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '4px 0',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  color: '#7c3aed',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  outline: 'none'
+                }}
               >
-                {expandedModules[moduleIdx] ? <ChevronDown size={20} className="mr-1 text-gray-800" /> : <ChevronRight size={20} className="mr-1 text-gray-800" />}
-                <Folder size={20} className="mr-2 text-gray-800 fill-gray-200" />
+                {expandedModules[moduleIdx] ? <ChevronDown size={14} style={{ marginRight: '4px' }} /> : <ChevronRight size={14} style={{ marginRight: '4px' }} />}
                 {module.title}
               </button>
 
               {expandedModules[moduleIdx] && (
-                <div className="mt-3 space-y-1">
+                <div style={{ marginTop: '8px', marginLeft: '16px', borderLeft: '2px solid #e5e7eb', paddingLeft: '12px' }}>
                   {module.topics.map((topic, topicIdx) => {
                     const isActive = activeTopic === topic;
                     return (
-                      <div key={topicIdx} className="ml-4"> {/* Indent Topics */}
+                      <div key={topicIdx} style={{ marginBottom: '4px' }}>
                         <button
                           onClick={() => handleTopicClick(topic)}
-                          className={`w-full text-left px-3 py-2 text-sm transition-colors flex items-center gap-2 rounded-l-md border-r-4 ${isActive
-                            ? 'bg-blue-50 text-blue-700 font-bold border-blue-600'
-                            : 'text-gray-600 hover:bg-gray-100 border-transparent'
-                            }`}
+                          style={{
+                            display: 'block',
+                            textAlign: 'left',
+                            fontSize: '14px',
+                            padding: '4px 8px',
+                            borderRadius: '4px',
+                            background: isActive ? '#fde047' : 'transparent',
+                            color: isActive ? '#1f2937' : '#2563eb',
+                            fontWeight: isActive ? '700' : '400',
+                            textDecoration: 'none',
+                            border: 'none',
+                            cursor: 'pointer',
+                            outline: 'none',
+                            width: '100%'
+                          }}
                           title={topic.title}
-                          style={{ outline: 'none' }}
+                          onMouseEnter={(e) => { if (!isActive) e.target.style.textDecoration = 'underline'; }}
+                          onMouseLeave={(e) => { e.target.style.textDecoration = 'none'; }}
                         >
-                          {/* Dot indicator for active state */}
-                          <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${isActive ? 'bg-blue-600' : 'bg-gray-300'}`} />
-                          <span className="">{topic.title}</span>
+                          {topic.title}
                         </button>
                       </div>
                     );
@@ -209,39 +229,115 @@ function App() {
       <div style={{ flex: 1, height: '100%', backgroundColor: '#ffffff', display: 'flex', flexDirection: 'column', minWidth: 0 }}>
         {/* Tabs Header */}
         <div style={{
-          height: '40px',
-          borderBottom: '1px solid #e5e7eb',
-          backgroundColor: '#f3f4f6',
+          height: '48px',
+          borderBottom: '1px solid #d1d5db',
+          backgroundColor: '#e5e7eb',
           display: 'flex',
           alignItems: 'center',
-          overflowX: 'auto'
-        }} className="no-scrollbar">
-          {currentTabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => !tab.disabled && setActiveTab(tab.id)}
-              disabled={tab.disabled}
-              className={`flex items-center gap-2 px-4 h-full text-sm border-r border-gray-200 min-w-fit transition-colors ${activeTab === tab.id
-                ? 'bg-white text-blue-600 border-t-2 border-t-blue-600 font-medium'
-                : tab.disabled
-                  ? 'text-gray-300 cursor-not-allowed bg-gray-50'
-                  : 'text-gray-600 hover:bg-gray-100 hover:text-gray-800 bg-gray-50 border-t-2 border-t-transparent'
-                }`}
-            >
-              <tab.icon size={14} />
-              {tab.label}
-            </button>
-          ))}
+          overflowX: 'auto',
+          padding: '4px 8px',
+          gap: '4px'
+        }}>
+          {currentTabs.map((tab) => {
+            const isSelected = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => !tab.disabled && setActiveTab(tab.id)}
+                disabled={tab.disabled}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '6px 14px',
+                  fontSize: '13px',
+                  fontWeight: isSelected ? '600' : '400',
+                  borderRadius: '4px',
+                  border: 'none',
+                  cursor: tab.disabled ? 'not-allowed' : 'pointer',
+                  outline: 'none',
+                  transition: 'all 0.15s ease',
+                  // 3D effect: selected = pressed down, unselected = raised
+                  background: tab.disabled
+                    ? '#d1d5db'
+                    : isSelected
+                      ? '#3b82f6'
+                      : '#f9fafb',
+                  color: tab.disabled
+                    ? '#9ca3af'
+                    : isSelected
+                      ? '#ffffff'
+                      : '#374151',
+                  boxShadow: tab.disabled
+                    ? 'none'
+                    : isSelected
+                      ? 'inset 2px 2px 4px rgba(0,0,0,0.2), inset -1px -1px 2px rgba(255,255,255,0.1)'
+                      : '2px 2px 4px rgba(0,0,0,0.15), -1px -1px 2px rgba(255,255,255,0.8)',
+                  transform: isSelected ? 'translateY(1px)' : 'translateY(0)'
+                }}
+              >
+                <tab.icon size={14} />
+                {tab.label}
+              </button>
+            );
+          })}
           {/* Breadcrumb / Title Area */}
-          <div className="flex-1 flex items-center justify-end px-4 text-xs text-gray-400 italic truncate">
+          <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'flex-end', padding: '0 16px', fontSize: '12px', color: '#9ca3af', fontStyle: 'italic' }}>
             {activeTopic.title}
           </div>
         </div>
 
         {/* Content Area */}
         <div style={{ flex: 1, position: 'relative', overflow: 'hidden', backgroundColor: '#fff', display: 'flex', flexDirection: 'column' }}>
-          {activeUrl ? (
-            ((activeUrl.includes('ai.studio') && !activeUrl.includes('embed=true')) || activeUrl.includes('notebooklm.google.com')) ? (
+          {activeTopic.isAboutContent ? (
+            // About Content
+            <div style={{ flex: 1, padding: '40px', overflowY: 'auto', maxWidth: '800px', margin: '0 auto' }}>
+              <h1 style={{ fontSize: '28px', fontWeight: '700', color: '#1f2937', marginBottom: '24px' }}>
+                About ME 3751 Learning Materials
+              </h1>
+
+              <div style={{ fontSize: '16px', lineHeight: '1.8', color: '#374151' }}>
+                <p style={{ marginBottom: '20px' }}>
+                  These study materials are prepared by <strong>Prof. Haijun Su</strong> for
+                  <strong> ME 3751 Kinematics and Mechanism Design</strong> at The Ohio State University.
+                </p>
+
+                <h2 style={{ fontSize: '20px', fontWeight: '600', color: '#1f2937', marginTop: '32px', marginBottom: '16px' }}>
+                  📚 What's Included
+                </h2>
+                <ul style={{ marginLeft: '24px', marginBottom: '20px' }}>
+                  <li style={{ marginBottom: '8px' }}><strong>Lecture Notes</strong> – PDF documents covering course topics</li>
+                  <li style={{ marginBottom: '8px' }}><strong>Lecture Videos</strong> – Recorded video explanations</li>
+                  <li style={{ marginBottom: '8px' }}><strong>Interactive Apps</strong> – Design and visualization tools for hands-on learning</li>
+                  <li style={{ marginBottom: '8px' }}><strong>AI Chat (NotebookLM)</strong> – AI-powered Q&A based on course materials</li>
+                </ul>
+
+                <h2 style={{ fontSize: '20px', fontWeight: '600', color: '#1f2937', marginTop: '32px', marginBottom: '16px' }}>
+                  🔐 Requirements
+                </h2>
+                <p style={{ marginBottom: '20px' }}>
+                  A <strong>Google account</strong> is required to access some apps (AI Studio) and the Chat feature (NotebookLM).
+                </p>
+
+                <div style={{
+                  backgroundColor: '#fef3c7',
+                  border: '1px solid #f59e0b',
+                  borderRadius: '8px',
+                  padding: '16px 20px',
+                  marginTop: '32px'
+                }}>
+                  <h2 style={{ fontSize: '18px', fontWeight: '600', color: '#92400e', marginBottom: '8px' }}>
+                    ⚠️ Disclaimer
+                  </h2>
+                  <p style={{ color: '#92400e', margin: 0 }}>
+                    Some materials in this collection were created with AI assistance and may contain errors.
+                    Please use them with caution and verify critical information independently.
+                  </p>
+                </div>
+              </div>
+            </div>
+          ) : activeUrl ? (
+            (activeUrl.includes('ai.studio') || activeUrl.includes('notebooklm.google.com')) ? (
               <div className="flex flex-col items-center justify-center h-full text-gray-500 gap-4">
                 <Globe size={48} className="text-gray-300" />
                 <div className="text-center">
@@ -278,7 +374,7 @@ function App() {
           )}
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 
