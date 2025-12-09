@@ -87,21 +87,30 @@ export const courseData = [
             {
                 title: "L2: 3 rocker positions (4-bar)",
                 notes: "Lectures/synthesis/GCP L2 Kinematic synthesis of 4-bar for two or three rocker positions.pdf",
-                video: "https://www.youtube.com/embed/F34QCjKYhts",
+                video: [
+                    "https://www.youtube.com/embed/F34QCjKYhts",
+                    "https://www.youtube.com/embed/EG9GuXPrEKw"
+                ],
                 app: "https://haijunsu-osu.github.io/rocker_synthesis_4bar/fourbar_rocker_synthesis.html",
                 chat: "https://notebooklm.google.com/notebook/928f63a4-be66-4316-b5f8-27121a62a5a5"
             },
             {
                 title: "L3: Kinematic Synthesis of 4-bar linkages",
                 notes: "Lectures/synthesis/GCP L3 Kinematic Synthesis of 4-bar linkages for specified rocker limit positions.pdf",
-                video: "https://www.youtube.com/embed/hmbIf7X8UG8",
+                video: [
+                    "https://www.youtube.com/embed/hmbIf7X8UG8",
+                    "https://www.youtube.com/embed/PbWgQ7cQlWY"
+                ],
                 app: null,
                 chat: "https://notebooklm.google.com/notebook/928f63a4-be66-4316-b5f8-27121a62a5a5"
             },
             {
                 title: "L4: 3 positions motion generation(4-bar)",
                 notes: "Lectures/synthesis/GCP L4 Motion Generation of 4-bar Linkages via GCP.pdf",
-                video: "https://www.youtube.com/embed/plNwn4mHVMY",
+                video: [
+                    "https://www.youtube.com/embed/plNwn4mHVMY",
+                    "https://www.youtube.com/embed/hEsWn-BcXc0"
+                ],
                 app: "https://haijunsu-osu.github.io/rigidbody_guidance_4bar/fourbar_GUI.html",
                 chat: "https://notebooklm.google.com/notebook/928f63a4-be66-4316-b5f8-27121a62a5a5"
             }
