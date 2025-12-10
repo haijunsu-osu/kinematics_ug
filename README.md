@@ -1,9 +1,20 @@
-# ME 3751 Kinematics and Mechanism Design
-This repository includes kits for teaching kinematics concepts for undergraduate students. These kits are developed for ME 3751 Kinematics and Mechanism Design at Department of Mechanical & Aerospace Engineering, The Ohio State University. Contact Prof. Haijun Su (su.298@osu.edu) if you have any question regarding to these kits.
+# Kinematics Course Materials
+
+This repository includes learning materials for teaching kinematics concepts at the undergraduate and graduate levels. These materials are developed for the following courses at the Department of Mechanical & Aerospace Engineering, The Ohio State University:
+
+- **ME 3751 Kinematics and Mechanism Design** (Undergraduate)
+- **ME 5751 Robot Kinematics** (Graduate)
+
+Contact Prof. Haijun Su (su.298@osu.edu) if you have any questions regarding these materials.
 
 > **⚠️ Warning:** Some materials in this repository are created with AI assistance and may contain errors. Please use them with caution and verify critical information independently.
 
-**Course Web App:** [https://haijunsu-osu.github.io/kinematics_ug/course_app/index.html](https://haijunsu-osu.github.io/kinematics_ug/course_app/index.html)
+## Course Web Apps
+
+| Course | Web App |
+|--------|---------|
+| ME 3751 Kinematics and Mechanism Design | [https://haijunsu-osu.github.io/kinematics_ug/course_app/](https://haijunsu-osu.github.io/kinematics_ug/course_app/) |
+| ME 5751 Robot Kinematics | [https://haijunsu-osu.github.io/kinematics_ug/robot_kinematics_app/](https://haijunsu-osu.github.io/kinematics_ug/robot_kinematics_app/) |
 
 ## Table of Contents
 
