@@ -34,13 +34,19 @@ function App() {
   // Generate tabs dynamically based on the active topic
   const getTabsForTopic = (topic) => {
     const types = [
-      { id: 'notes', label: 'Notes', icon: BookOpen, data: topic.notes },
+      { id: 'notes', label: topic.notes ? 'Notes' : 'Slides', icon: BookOpen, data: topic.slides || topic.notes },
       { id: 'video', label: 'Video', icon: Video, data: topic.video },
       { id: 'app', label: 'App', icon: AppWindow, data: topic.app },
       { id: 'chat', label: 'Chat', icon: MessageSquare, data: topic.chat },
     ];
 
     let tabs = [];
+
+    // Add Intro tab for About sections
+    if (topic.isAboutContent) {
+      tabs.push({ id: 'about-text', label: 'Intro', icon: FileText });
+    }
+
     types.forEach(type => {
       const contents = getContentArray(type.data);
       if (contents.length === 0) {
@@ -67,7 +73,13 @@ function App() {
     setActiveTopic(topic);
     const newTabs = getTabsForTopic(topic);
 
-    // Priority: notes first, then video, then first available
+    // Priority: Intro first, then slides, then video, then first available
+    const introTab = newTabs.find(t => t.id === 'about-text');
+    if (introTab) {
+      setActiveTab('about-text');
+      return;
+    }
+
     const notesTab = newTabs.find(t => t.id === 'notes' && !t.disabled);
     if (notesTab) {
       setActiveTab('notes');
@@ -289,7 +301,7 @@ function App() {
 
         {/* Content Area */}
         <div style={{ flex: 1, position: 'relative', overflow: 'hidden', backgroundColor: '#fff', display: 'flex', flexDirection: 'column' }}>
-          {activeTopic.isAboutContent ? (
+          {activeTab === 'about-text' ? (
             // About Content
             <div style={{ flex: 1, padding: '40px', overflowY: 'auto', maxWidth: '800px', margin: '0 auto' }}>
               <h1 style={{ fontSize: '28px', fontWeight: '700', color: '#1f2937', marginBottom: '24px' }}>
@@ -312,7 +324,7 @@ function App() {
                   📚 What's Included
                 </h2>
                 <ul style={{ marginLeft: '24px', marginBottom: '20px' }}>
-                  <li style={{ marginBottom: '8px' }}><strong>Lecture Notes</strong> – PDF documents covering course topics</li>
+                  <li style={{ marginBottom: '8px' }}><strong>Lecture Slides</strong> – PDF documents covering course topics</li>
                   <li style={{ marginBottom: '8px' }}><strong>Lecture Videos</strong> – Recorded video explanations</li>
                   <li style={{ marginBottom: '8px' }}><strong>Interactive Apps</strong> – Design and visualization tools for hands-on learning</li>
                   <li style={{ marginBottom: '8px' }}><strong>AI Chat (NotebookLM)</strong> – AI-powered Q&A based on course materials</li>

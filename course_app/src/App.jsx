@@ -34,7 +34,7 @@ function App() {
   // Generate tabs dynamically based on the active topic
   const getTabsForTopic = (topic) => {
     const types = [
-      { id: 'notes', label: 'Notes', icon: BookOpen, data: topic.notes },
+      { id: 'notes', label: 'Slides', icon: BookOpen, data: topic.slides },
       { id: 'video', label: 'Video', icon: Video, data: topic.video },
       { id: 'app', label: 'App', icon: AppWindow, data: topic.app },
       { id: 'chat', label: 'Chat', icon: MessageSquare, data: topic.chat },
@@ -306,7 +306,7 @@ function App() {
                   📚 What's Included
                 </h2>
                 <ul style={{ marginLeft: '24px', marginBottom: '20px' }}>
-                  <li style={{ marginBottom: '8px' }}><strong>Lecture Notes</strong> – PDF documents covering course topics</li>
+                  <li style={{ marginBottom: '8px' }}><strong>Lecture Slides</strong> – PDF documents covering course topics</li>
                   <li style={{ marginBottom: '8px' }}><strong>Lecture Videos</strong> – Recorded video explanations</li>
                   <li style={{ marginBottom: '8px' }}><strong>Interactive Apps</strong> – Design and visualization tools for hands-on learning</li>
                   <li style={{ marginBottom: '8px' }}><strong>AI Chat (NotebookLM)</strong> – AI-powered Q&A based on course materials</li>
