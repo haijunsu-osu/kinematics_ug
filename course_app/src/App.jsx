@@ -299,7 +299,8 @@ function App() {
               <div style={{ fontSize: '16px', lineHeight: '1.8', color: '#374151' }}>
                 <p style={{ marginBottom: '20px' }}>
                   These study materials are prepared by <strong>Prof. Haijun Su</strong> for
-                  <strong> ME 3751 Kinematics and Mechanism Design</strong> at The Ohio State University.
+                  <strong> ME 3751 Kinematics and Mechanism Design</strong> at The Ohio State University. The textbook is <a href="https://www.wiley.com/en-us/Kinematics%2C+Dynamics%2C+and+Design+of+Machinery%2C+3rd+Edition-p-9781118933329" target="_blank" rel="noopener noreferrer" style={{ color: '#2563eb', textDecoration: 'underline' }}>Kinematics, Dynamics, and Design of Machinery 3rd Edition</a>
+                  by Kenneth J. Waldron, Gary L. Kinzel, Sunil K. Agrawal.
                 </p>
 
                 <h2 style={{ fontSize: '20px', fontWeight: '600', color: '#1f2937', marginTop: '32px', marginBottom: '16px' }}>
