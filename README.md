@@ -4,6 +4,7 @@ This repository includes learning materials for teaching kinematics concepts at 
 
 - **ME 3751 Kinematics and Mechanism Design** (Undergraduate)
 - **ME 5751 Robot Kinematics** (Graduate)
+- **ME 7751 Compliant Mechanisms** (Graduate)
 
 Contact Prof. Haijun Su (su.298@osu.edu) if you have any questions regarding these materials.
 
@@ -15,6 +16,8 @@ Contact Prof. Haijun Su (su.298@osu.edu) if you have any questions regarding the
 |--------|---------|
 | ME 3751 Kinematics and Mechanism Design | [https://haijunsu-osu.github.io/kinematics_ug/course_app/](https://haijunsu-osu.github.io/kinematics_ug/course_app/) |
 | ME 5751 Robot Kinematics | [https://haijunsu-osu.github.io/kinematics_ug/robot_kinematics_app/](https://haijunsu-osu.github.io/kinematics_ug/robot_kinematics_app/) |
+| ME 7751 Compliant Mechanisms | [https://haijunsu-osu.github.io/kinematics_ug/compliant_mechanisms_app/](https://haijunsu-osu.github.io/kinematics_ug/compliant_mechanisms_app/) |
+
 
 ## Table of Contents
 
@@ -60,3 +63,26 @@ Contact Prof. Haijun Su (su.298@osu.edu) if you have any questions regarding the
 | Follower program synthesis (2): coordinate transformation | [Interactive CAM design](https://ai.studio/apps/drive/1fgHMsdQQI062-z5Boze_TQAn_Im9NGuO)) | [L3_Follower_By_Transformation.pdf](Lectures/cam/L3_Follower_By_Transformation.pdf) | [L3](https://www.youtube.com/watch?v=iQgB9nVp3Jg) |
 | Cam profile design | [Interactive CAM design](https://ai.studio/apps/drive/1fgHMsdQQI062-z5Boze_TQAn_Im9NGuO)) | [L4_Cam_Profile_Design.pdf](Lectures/cam/L4_Cam_Profile_Design.pdf) | [L4](https://www.youtube.com/watch?v=rO_oPnYWkGY) |
 
+### ME 7751 Compliant Mechanisms
+
+Compliant mechanisms gain their mobility from the deflection of flexible members rather than from movable joints. This course covers two main modules:
+
+#### Module 1: PRB Models (Pseudo Rigid Body Models for planar compliant mechanisms)
+
+| Topic | App | Lecture Notes | Lecture Videos |
+|-------|-----|---------------|----------------|
+| Introduction to Compliant Mechanisms | [AI Studio](https://ai.studio/apps/drive/1Lq-Q3aIHv7bnU1IZOp5lazN1XBaoBRf1) | [L1 Introduction to Compliant Mechanisms.pdf](compliant_mechanisms/PRB_models/L1%20Introduction%20to%20Compliant%20Mechanisms.pdf) | [L1](https://youtu.be/sFXNPMFqD7Y) |
+| Review - Mechanics of Materials | [AI Studio](https://ai.studio/apps/drive/1Lq-Q3aIHv7bnU1IZOp5lazN1XBaoBRf1) | [L2 Review_Mechanics_Materials_Compliant_Mechanisms.pdf](compliant_mechanisms/PRB_models/L2%20Review_Mechanics_Materials_Compliant_Mechanisms.pdf) | [L2](https://youtu.be/px3gu4icZWM) |
+| Pseudo Rigid Body Models | [AI Studio](https://ai.studio/apps/drive/1Lq-Q3aIHv7bnU1IZOp5lazN1XBaoBRf1) | [L3 Pseudo Rigid Body Models.pdf](compliant_mechanisms/PRB_models/L3%20Pseudo%20Rigid%20Body%20Models.pdf) | [L3](https://youtu.be/XeIVr3MDGK8) |
+| Kinetostatic Analysis | [AI Studio](https://ai.studio/apps/drive/1l2vITq2mxe4crHmh6HHBJCsDy81v3cad) | [L4 Kinetostatic_Analysis.pdf](compliant_mechanisms/PRB_models/L4%20Kinetostatic_Analysis.pdf) | [L4](https://youtu.be/NNz49_5Gi24) |
+
+#### Module 2: Screw Theory (Screw theory approach for design and analysis of spatial compliant mechanisms)
+
+| Topic | App | Lecture Notes | Lecture Videos |
+|-------|-----|---------------|----------------|
+| Screw Theory Review | — | [L1 Screw_Theory_Review.pdf](compliant_mechanisms/screw_theory/L1%20Screw_Theory_Review.pdf) | [L1](https://youtu.be/GDj3bfA9uCo) |
+| Constraint and Screw Theory for Flexures | — | [L2 Constraint_and_Screw_Theory_for_Flexures.pdf](compliant_mechanisms/screw_theory/L2%20Constraint_and_Screw_Theory_for_Flexures.pdf) | [L2](https://youtu.be/AS0tJT0ciOU) |
+| Synthesis of Flexure Mechanisms | — | [L3 Synthesis_Flexure_Mechanisms_Screw_Theory.pdf](compliant_mechanisms/screw_theory/L3%20Synthesis_Flexure_Mechanisms_Screw_Theory.pdf) | [L3](https://youtu.be/noQOfRNJ27k) |
+| Compliance Matrices for Flexure Design | — | [L4 Compliance_Matrices_Flexure_Design.pdf](compliant_mechanisms/screw_theory/L4%20Compliance_Matrices_Flexure_Design.pdf) | [L4](https://youtu.be/DtgJexV31LE) |
+
+**Video Playlist:** [Compliant Mechanisms on YouTube](https://www.youtube.com/playlist?list=PLjiZ26l9QIkwztgOVTu5h9XNI3z6-sRQi)

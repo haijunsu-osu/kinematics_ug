@@ -44,25 +44,37 @@ jobs:
         run: npm run build
         working-directory: robot_kinematics_app
 
+      # Build compliant_mechanisms_app
+      - name: Install dependencies (compliant_mechanisms_app)
+        run: npm ci
+        working-directory: compliant_mechanisms_app
+
+      - name: Build (compliant_mechanisms_app)
+        run: npm run build
+        working-directory: compliant_mechanisms_app
+
       - name: Prepare Deployment Artifact
         run: |
           mkdir _site
           
           # Copy all root files (Lectures, README, etc.) to _site
           # We use rsync to exclude .git, node_modules, and _site itself to avoid recursion/bloat
-          rsync -av --progress . _site --exclude .git --exclude .github --exclude node_modules --exclude course_app/node_modules --exclude robot_kinematics_app/node_modules --exclude _site
+          rsync -av --progress . _site --exclude .git --exclude .github --exclude node_modules --exclude course_app/node_modules --exclude robot_kinematics_app/node_modules --exclude compliant_mechanisms_app/node_modules --exclude _site
           
           # Remove the source app folders from _site
           rm -rf _site/course_app
           rm -rf _site/robot_kinematics_app
+          rm -rf _site/compliant_mechanisms_app
           
           # Create fresh directories in _site
           mkdir _site/course_app
           mkdir _site/robot_kinematics_app
+          mkdir _site/compliant_mechanisms_app
           
           # Copy the BUILT apps to _site
           cp -r course_app/dist/* _site/course_app/
           cp -r robot_kinematics_app/dist/* _site/robot_kinematics_app/
+          cp -r compliant_mechanisms_app/dist/* _site/compliant_mechanisms_app/
           
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
