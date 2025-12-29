@@ -331,6 +331,24 @@ function App() {
                 </ul>
 
                 <h2 style={{ fontSize: '20px', fontWeight: '600', color: '#1f2937', marginTop: '32px', marginBottom: '16px' }}>
+                  🔗 Other Course Web Apps
+                </h2>
+                <ul style={{ marginLeft: '24px', marginBottom: '20px' }}>
+                  <li style={{ marginBottom: '8px' }}>
+                    <a href="https://haijunsu-osu.github.io/kinematics_ug/course_app/" target="_blank" rel="noopener noreferrer" style={{ color: '#2563eb', textDecoration: 'underline' }}>
+                      <strong>ME 3751 Kinematics and Mechanism Design</strong>
+                    </a>
+                    : Covers kinematics fundamentals, linkage analysis, and cam design.
+                  </li>
+                  <li style={{ marginBottom: '8px' }}>
+                    <a href="https://haijunsu-osu.github.io/kinematics_ug/compliant_mechanisms_app/" target="_blank" rel="noopener noreferrer" style={{ color: '#2563eb', textDecoration: 'underline' }}>
+                      <strong>ME 7751 Compliant Mechanisms</strong>
+                    </a>
+                    : Covers design and analysis of compliant mechanisms using PRB models and Screw Theory.
+                  </li>
+                </ul>
+
+                <h2 style={{ fontSize: '20px', fontWeight: '600', color: '#1f2937', marginTop: '32px', marginBottom: '16px' }}>
                   🔐 Requirements
                 </h2>
                 <p style={{ marginBottom: '20px' }}>
