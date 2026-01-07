@@ -71,7 +71,7 @@ export const courseData = [
         topics: [
             {
                 title: "Lecture Notes",
-                notes: "Lectures/robot_kinematics.pdf",
+                notes: "https://github.com/haijunsu-osu/lec_robot_kinematics/raw/main/robot_kinematics.pdf",
                 video: null,
                 app: null,
                 chat: null
