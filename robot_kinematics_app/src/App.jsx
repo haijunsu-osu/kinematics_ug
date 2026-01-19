@@ -52,15 +52,31 @@ function App() {
       if (contents.length === 0) {
         tabs.push({ ...type, disabled: true });
       } else if (contents.length === 1) {
-        tabs.push({ ...type, url: contents[0] });
+        // Check if single item is an object with label/url or just a string
+        const item = contents[0];
+        if (typeof item === 'object' && item.label && item.url) {
+          tabs.push({ ...type, label: item.label, url: item.url });
+        } else {
+          tabs.push({ ...type, url: item });
+        }
       } else {
-        contents.forEach((url, idx) => {
-          tabs.push({
-            id: `${type.id}-${idx}`,
-            label: `${type.label} ${idx + 1}`,
-            icon: type.icon,
-            url: url
-          });
+        contents.forEach((item, idx) => {
+          // Check if item is an object with label/url or just a string
+          if (typeof item === 'object' && item.label && item.url) {
+            tabs.push({
+              id: `${type.id}-${idx}`,
+              label: item.label,
+              icon: type.icon,
+              url: item.url
+            });
+          } else {
+            tabs.push({
+              id: `${type.id}-${idx}`,
+              label: `${type.label} ${idx + 1}`,
+              icon: type.icon,
+              url: item
+            });
+          }
         });
       }
     });

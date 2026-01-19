@@ -37,7 +37,10 @@ export const courseData = [
                 title: "L2: Forward Kinematics (DH Convention)",
                 slides: "Lectures/L2_Forward_Kinematics_DH.pdf",
                 video: "https://www.youtube.com/embed/ChBVbjPra9Q",
-                app: "https://haijunsu-osu.github.io/robot_kinematics_demo/",
+                app: [
+                    { label: "Spatial Kinematics", url: "https://haijunsu-osu.github.io/robot_kinematics_demo/" },
+                    { label: "UR5e Robot", url: "https://ai.studio/apps/drive/1i7HFgweLjhAazkKngfKDwt1zjrcPcNCb" }
+                ],
                 chat: "https://notebooklm.google.com/notebook/c8714d81-bb4e-4e40-83fb-738fef528139"
             }
         ]
@@ -49,7 +52,10 @@ export const courseData = [
                 title: "L3: Robot Inverse Kinematics",
                 slides: "Lectures/L3_Robot_Inverse_Kinematics.pdf",
                 video: "https://www.youtube.com/embed/wF8P_3gBMgk",
-                app: "https://haijunsu-osu.github.io/robot_kinematics_demo/",
+                app: [
+                    { label: "Spatial Kinematics", url: "https://haijunsu-osu.github.io/robot_kinematics_demo/" },
+                    { label: "UR5e Robot", url: "https://ai.studio/apps/drive/1i7HFgweLjhAazkKngfKDwt1zjrcPcNCb" }
+                ],
                 chat: "https://notebooklm.google.com/notebook/c8714d81-bb4e-4e40-83fb-738fef528139"
             }
         ]
@@ -61,7 +67,9 @@ export const courseData = [
                 title: "L4: Path Planning",
                 slides: "Lectures/L4_Path_Planning.pdf",
                 video: "https://www.youtube.com/embed/SwFj_QGRF6E",
-                app: null,
+                app: [
+                    { label: "UR5e Robot", url: "https://ai.studio/apps/drive/1i7HFgweLjhAazkKngfKDwt1zjrcPcNCb" }
+                ],
                 chat: "https://notebooklm.google.com/notebook/c8714d81-bb4e-4e40-83fb-738fef528139"
             }
         ]
